@@ -1,0 +1,999 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>余怡衡 | 个人简历</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface-strong: #ffffff;
+      --text: #172033;
+      --muted: #5f6b7a;
+      --line: #e4e9f0;
+      --primary: #1f4fa8;
+      --primary-2: #386fc8;
+      --accent: #187d72;
+      --accent-2: #ffd166;
+      --shadow: 0 16px 42px rgba(23, 32, 51, .07);
+      --shadow-soft: 0 8px 24px rgba(23, 32, 51, .05);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --max: 1160px;
+      --nav-h: 72px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      letter-spacing: 0;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      height: var(--nav-h);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, .96);
+    }
+
+    .nav-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: max-content;
+      font-weight: 850;
+    }
+
+    .mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 6px;
+      object-fit: cover;
+      object-position: center;
+      border: 1px solid var(--line);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a {
+      padding: 8px 11px;
+      border-radius: 999px;
+      color: var(--muted);
+      white-space: nowrap;
+      font-size: 14px;
+      transition: 180ms ease;
+    }
+    .nav-links a:hover { color: var(--text); background: color-mix(in srgb, var(--primary) 10%, transparent); }
+
+    .nav-actions { display: flex; gap: 8px; align-items: center; }
+    .icon-btn, .btn {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 180ms ease, background 180ms ease, border 180ms ease;
+    }
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+    }
+    .icon-btn:hover, .btn:hover { transform: translateY(-1px); border-color: color-mix(in srgb, var(--primary) 34%, var(--line)); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 9px 15px;
+      font-weight: 700;
+    }
+    .btn.primary {
+      border-color: transparent;
+      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      box-shadow: 0 14px 30px rgba(36, 87, 214, .22);
+    }
+
+    .hero { position: relative; padding: 64px 0 30px; }
+
+    .pig-easter-egg {
+      position: absolute;
+      top: 88px;
+      right: 24px;
+      z-index: 5;
+      width: 76px;
+      height: 76px;
+      padding: 0;
+      border: 0;
+      border-radius: 10px;
+      background: transparent;
+      cursor: pointer;
+      transition: transform 180ms ease, filter 180ms ease;
+    }
+
+    .pig-easter-egg:hover,
+    .pig-easter-egg:focus-visible {
+      transform: translateY(-3px) scale(1.04);
+      filter: drop-shadow(0 8px 12px rgba(23, 32, 51, .12));
+      outline: none;
+    }
+
+    .pig-easter-egg:focus-visible { box-shadow: 0 0 0 3px rgba(31, 79, 168, .22); }
+    .pig-easter-egg img { display: block; width: 100%; height: 100%; object-fit: contain; }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.26fr .74fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .panel {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero-main { padding: 42px; }
+
+    .identity {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .hero-avatar {
+      width: 128px;
+      height: 128px;
+      flex: 0 0 auto;
+      border-radius: 8px;
+      object-fit: contain;
+      object-position: center;
+      background: #f6f7f9;
+      border: 4px solid #fff;
+      box-shadow: 0 0 0 1px var(--line), var(--shadow-soft);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(44px, 7vw, 74px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 760px;
+    }
+
+    .motto {
+      position: relative;
+      margin: 28px 0 0;
+      padding: 20px 22px 20px 26px;
+      border-left: 4px solid var(--primary);
+      background: #f5f8fc;
+      color: var(--text);
+      font-family: "STKaiti", "KaiTi", "Microsoft YaHei", sans-serif;
+      font-size: clamp(18px, 2vw, 23px);
+      font-weight: 700;
+      line-height: 1.75;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--surface-strong) 76%, transparent);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+
+    .profile-card {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      min-height: 100%;
+    }
+
+    .profile-card h2 { margin: 0; font-size: 22px; }
+    .profile-card .contact-note { margin: 7px 0 0; color: var(--muted); font-size: 14px; }
+
+    .contact-list { display: grid; gap: 10px; margin-top: 20px; }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fafbfd;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .contact-item strong { color: var(--text); font-size: 13px; }
+
+    section { padding: 34px 0; scroll-margin-top: calc(var(--nav-h) + 16px); }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 18px;
+    }
+    .section-head h2 { margin: 0; font-size: 28px; line-height: 1.2; }
+    .section-head p { margin: 6px 0 0; color: var(--muted); }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+    .metric {
+      padding: 20px;
+      min-height: 132px;
+      transition: 200ms ease;
+    }
+    .metric:hover, .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .metric b {
+      display: block;
+      font-size: 32px;
+      line-height: 1;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    .metric span { color: var(--muted); font-size: 14px; }
+
+    .journey-shell {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: #fafbfc;
+      padding: 8px 34px;
+    }
+
+    .journey-kicker {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      margin-bottom: 8px;
+    }
+
+    .journey-title {
+      margin: 0 0 22px;
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 1.12;
+    }
+
+    .journey-title::after { content: "."; color: var(--accent); }
+
+    .journey-list { display: grid; }
+    .journey-row {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      align-items: center;
+      gap: 24px;
+      min-height: 82px;
+      border-top: 1px solid var(--line);
+    }
+    .journey-row:first-child { border-top: 0; }
+    .journey-label { color: #8a94a3; font-weight: 750; }
+    .journey-value {
+      color: var(--text);
+      font-size: 20px;
+      font-weight: 850;
+      text-align: right;
+    }
+
+    .tabs {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+    .tablist {
+      display: flex;
+      gap: 6px;
+      padding: 10px;
+      border-bottom: 1px solid var(--line);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tablist::-webkit-scrollbar { display: none; }
+    .tab {
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      padding: 10px 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      font-weight: 800;
+      transition: 180ms ease;
+    }
+    .tab[aria-selected="true"] {
+      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      box-shadow: 0 10px 22px rgba(36, 87, 214, .18);
+    }
+    .tabpanel { padding: 18px; }
+
+    .timeline { display: grid; gap: 14px; }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: color-mix(in srgb, var(--surface-strong) 82%, transparent);
+      padding: 20px;
+      transition: 200ms ease;
+    }
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+    .card h3 { margin: 0; font-size: 19px; line-height: 1.35; }
+    .meta { color: var(--muted); font-size: 14px; font-weight: 700; white-space: nowrap; }
+    .role { color: var(--primary); font-weight: 850; margin-top: 2px; }
+    ul.clean { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+    ul.clean li {
+      position: relative;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+    ul.clean li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .72em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .project-card .stack { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .mini {
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      padding: 5px 9px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .edu-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 14px; }
+    .award-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+
+    .footer {
+      padding: 34px 0 48px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .to-top {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 60;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+    }
+    .to-top.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+    .fade-in { animation: fadeIn .45s ease both; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; scroll-behavior: auto !important; }
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid, .edu-grid { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: repeat(2, 1fr); }
+      .project-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .pig-easter-egg { top: 80px; right: 14px; width: 60px; height: 60px; }
+    }
+
+    @media (max-width: 560px) {
+      .container { width: min(100% - 24px, var(--max)); }
+      .hero { padding-top: 34px; }
+      .pig-easter-egg { top: 18px; width: 52px; height: 52px; }
+      .hero-main, .profile-card { padding: 24px; }
+      .metrics { grid-template-columns: 1fr; }
+      .identity { align-items: flex-start; gap: 16px; }
+      .hero-avatar { width: 94px; height: 94px; }
+      .journey-shell { padding: 4px 20px; }
+      .journey-row { grid-template-columns: 92px 1fr; gap: 14px; min-height: 72px; }
+      .journey-value { font-size: 16px; }
+      .card-head { display: grid; }
+      .meta { white-space: normal; }
+      .btn { width: 100%; }
+      .hero-actions { width: 100%; }
+      .nav-actions .btn { display: none; }
+    }
+
+    @media print {
+      :root {
+        --bg: #ffffff;
+        --surface: #ffffff;
+        --surface-strong: #ffffff;
+        --text: #111827;
+        --muted: #374151;
+        --line: #d1d5db;
+        --primary: #1d4ed8;
+        --accent: #0f766e;
+        --shadow: none;
+        --shadow-soft: none;
+      }
+      body { background: #fff; font-size: 12px; }
+      body::before, .nav, .to-top, .pig-easter-egg, .hero-actions, .tablist, .footer { display: none !important; }
+      .container { width: 100%; padding: 0 10mm; }
+      .hero { padding: 0 0 8mm; }
+      .hero-grid, .edu-grid, .project-grid, .metrics { grid-template-columns: 1fr 1fr; gap: 8px; }
+      section { padding: 5mm 0; break-inside: avoid; }
+      .panel, .tabs, .card { box-shadow: none; break-inside: avoid; }
+      .tabpanel { display: block !important; padding: 0; }
+      .tabpanel[hidden] { display: block !important; }
+      .card { padding: 12px; }
+      h1 { font-size: 38px; }
+      .subtitle { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="主导航">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="回到首页">
+        <img class="mark" src="我的头像.jpg" alt="余怡衡头像">
+        <span id="navName">余怡衡</span>
+      </a>
+      <div class="nav-links">
+        <a href="#highlights">亮点</a>
+        <a href="#journey">求学之路</a>
+        <a href="#experience">经历</a>
+        <a href="#projects">项目</a>
+        <a href="#education">教育</a>
+      </div>
+      <div class="nav-actions">
+        <button class="btn" type="button" onclick="window.print()">打印 PDF</button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <section class="hero">
+      <button class="pig-easter-egg" id="pigEasterEgg" type="button" aria-label="小猪翻滚彩蛋" title="把鼠标放上来试试">
+        <img id="pigImage" src="google-pig-still.png" alt="一只等待翻滚的谷歌小猪">
+      </button>
+      <div class="container hero-grid">
+        <div class="panel hero-main fade-in">
+          <div class="identity">
+            <img class="hero-avatar" src="我的头像.jpg" alt="余怡衡个人头像">
+            <h1 id="heroName"></h1>
+          </div>
+          <p class="subtitle" id="summary"></p>
+          <blockquote class="motto">为天地立心，为生民立命，为往圣继绝学，为万世开太平</blockquote>
+          <div class="badges" id="tags"></div>
+          <div class="hero-actions">
+            <a class="btn primary" id="phoneBtn" href="#">联系我</a>
+            <button class="btn" id="copyEmail" type="button">复制邮箱</button>
+            <a class="btn" id="githubBtn" href="#" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+        <aside class="panel profile-card fade-in" aria-label="联系方式">
+          <h2>联系方式</h2>
+          <p class="contact-note">欢迎就学生工作、校园协作与项目交流联系我。</p>
+          <div class="contact-list" id="contacts"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="journey">
+      <div class="container">
+        <div class="journey-kicker">教育背景 / ACADEMIC PROFILE</div>
+        <h2 class="journey-title">求学之路</h2>
+        <div class="journey-shell" id="journeyList"></div>
+      </div>
+    </section>
+
+    <section id="highlights">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>亮点成果</h2>
+          </div>
+        </div>
+        <div class="metrics" id="metrics"></div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>经历</h2>
+            <p>按场景切换查看校园、组织与长期学生干部经历。</p>
+          </div>
+        </div>
+        <div class="tabs" id="experienceTabs"></div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>项目经历</h2>
+            <p>展示工具意识、AI协作与信息系统化能力。</p>
+          </div>
+        </div>
+        <div class="tabs" id="projectTabs"></div>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>教育与证书</h2>
+            <p>教育背景、奖项荣誉与公开表达成果。</p>
+          </div>
+        </div>
+        <div class="edu-grid">
+          <div class="panel card" id="eduCards"></div>
+          <div class="panel card">
+            <h3>获奖与荣誉</h3>
+            <div class="award-list" id="awards"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <button class="icon-btn to-top" id="toTop" type="button" aria-label="返回顶部">↑</button>
+
+  <footer class="footer">
+    <div class="container">
+      <span id="footerText"></span>
+    </div>
+  </footer>
+
+  <script>
+    const resume = {
+      name: "余怡衡",
+      phone: "15670279550",
+      emailUser: "3056652459",
+      emailDomain: "qq.com",
+      github: "yuyiheng2007",
+      githubUrl: "https://github.com/yuyiheng2007",
+      updatedAt: "2026-09-18",
+      summary: "应用心理学（智能化方向）本科新生，具备12年班长经历、学生会主席与国旗队经历。擅长组织动员、公开表达、材料汇总与AI辅助办公，已参与学院会务和跨班级文档协作，服务2个专业、4个班级、220余名学生。",
+      tags: ["可靠负责", "组织表达能力强", "思维深刻", "AI工具应用", "学生事务协作"],
+      educationJourney: [
+        ["院校", "河南财政金融学院"],
+        ["学院", "教育科学学院"],
+        ["专业", "应用心理学（智能化方向）"],
+        ["班级", "2026级一班（26应智U(1)）"],
+        ["阶段", "本科一年级"]
+      ],
+      metrics: [
+        { value: "12年", label: "连续担任班长，长期承担班级管理与组织协调" },
+        { value: "220+", label: "材料服务学生，覆盖2个专业、4个班级" },
+        { value: "10+", label: "主持/演讲/公开发言经历" },
+        { value: "4次", label: "全校级发言与优秀毕业生回校分享" },
+        { value: "市级", label: "演讲比赛二等奖，校级一等奖" }
+      ],
+      contacts: [
+        ["电话", "15670279550"],
+        ["邮箱", "3056652459@qq.com"],
+        ["微信", "yyh17513622587"],
+        ["QQ", "3056652459"],
+        ["GitHub", "yuyiheng2007"],
+      ],
+      experienceTabs: [
+        {
+          name: "学院事务",
+          items: [
+            {
+              title: "教育科学学院｜班级与学院文档汇总协助",
+              time: "2026.09 - 至今",
+              role: "材料整理 / 信息汇总 / 学院事务协作",
+              bullets: [
+                "参与制作教材领取确认表、军训考勤表、军训服调换登记表、宿舍信息表等事务材料，支撑入学初期高频信息管理。",
+                "材料覆盖2个专业、4个班级、220余名学生，支持通知回收、教材领取、军训管理与基础信息统计。",
+                "优化表格排版与打印效果，提升材料清晰度、可读性和老师同学的实际使用体验。",
+                "后续负责教育科学学院相关文档汇总工作，承担更大范围的信息整理、材料归档与事务协同任务。",
+                "通过规范化表格与信息流程，减少重复沟通成本，提升班级和学院事务处理效率。"
+              ]
+            },
+            {
+              title: "教育科学学院｜学院会务协助人员",
+              time: "2026.09",
+              role: "现场执行 / 会务协作 / 素材留存",
+              bullets: [
+                "作为辅导员三名助手之一，参与教育科学学院开学典礼暨新生相关会议现场协助，服务应用心理学、学前教育等专业学生。",
+                "提前到场完成会场卫生整理、座位组织、现场秩序维护等工作，保障会议顺利开展。",
+                "负责会议现场照片拍摄与素材留存，为学院后续宣传、记录和材料整理提供基础素材。",
+                "会后主动参与会场清理与收尾工作，体现较强的主动补位意识和公共事务责任感。",
+                "事后主动复盘拍摄环节不足，获得辅导员“认真、细心、负责、眼里有活”的正向评价，并获得后续更多学院事务安排。"
+              ]
+            }
+          ]
+        },
+        {
+          name: "学生干部",
+          items: [
+            {
+              title: "小学至高中｜班长 / 学生干部",
+              time: "长期经历",
+              role: "班级管理 / 活动组织 / 冲突协调",
+              bullets: [
+                "连续12年担任班长，长期负责通知传达、班级纪律、集体活动组织、同学沟通与班级事务协调。",
+                "多次组织班级集体活动，通过沟通动员让绝大部分同学积极参与，增强班级凝聚力和协作氛围。",
+                "善于调节同学之间的矛盾和意见冲突，在班级事务中兼顾规则执行、情绪安抚与关系维护。",
+                "曾作为主持人、演讲人上台发言10余次，其中包括4次全校级发言。",
+                "初中毕业后，曾4次作为优秀毕业生受班主任邀请回校，为初三中招备考学生进行经验分享与备考动员。"
+              ]
+            },
+            {
+              title: "西峡一高｜校学生会主席 / 国旗队队员",
+              time: "高中阶段",
+              role: "学生组织 / 仪式活动 / 公共服务",
+              bullets: [
+                "担任校学生会主席，参与学生组织事务协调、活动执行与学生群体沟通工作。",
+                "作为国旗队队员参与学校升旗、仪式活动与纪律展示，培养较强规则意识、责任意识和集体荣誉感。",
+                "在学生会与国旗队经历中形成稳定执行力、组织意识和公共服务意识。",
+                "获得“优秀校学生会主席”“优秀国旗队队员”等荣誉，体现学校层面对个人综合能力的认可。"
+              ]
+            }
+          ]
+        }
+      ],
+      projectTabs: [
+        {
+          name: "数字工具",
+          items: [
+            {
+              title: "生活管理助手｜个人网页工具项目",
+              time: "2026",
+              role: "项目规划 / 功能规划 / 页面设计 / AI辅助搭建",
+              stack: ["HTML", "CSS", "JavaScript", "AI协作", "产品规划"],
+              link: "https://yuyiheng2007.github.io/college-life-assistant/",
+              bullets: [
+                "主导项目规划与功能设计，围绕大学生活管理需求设计课表、任务、计划、媒体资料、财务与生活管理等模块。",
+                "负责页面设计与内容排版，优化信息层级和视觉呈现，使工具更适合个人长期使用和分享传播。",
+                "使用AI辅助完成网页工具搭建，将零散大学生活事务转化为可持续维护的数字化管理系统。",
+                "完成线上部署，并整理本地单文件版与分享版，提升项目在不同场景下的可访问性与传播便利性。"
+              ]
+            },
+            {
+              title: "个人知识库建设项目",
+              time: "2026 - 至今",
+              role: "知识管理 / 信息架构 / AI协作",
+              stack: ["Obsidian", "Markdown", "AI工具", "复盘系统"],
+              bullets: [
+                "建立个人大学成长知识库，用于沉淀学校信息、专业规划、学习资料、项目记录、输出成果与复盘内容。",
+                "采用“原始资料、编译笔记、方法库、输出成果、复盘记录”的分层结构，提升长期学习和资料调用效率。",
+                "结合Obsidian、Markdown与AI工具，对大学规划、AI学习、自媒体方向、校园事务进行系统化管理。",
+                "通过持续更新与复盘，形成个人成长、项目管理和知识沉淀的长期机制。"
+              ]
+            }
+          ]
+        },
+        {
+          name: "校园事务",
+          items: [
+            {
+              title: "班级课表与材料整理项目",
+              time: "2026",
+              role: "材料整理 / 表格制作 / 信息汇总",
+              stack: ["表格制作", "PDF整理", "信息汇总", "打印优化"],
+              bullets: [
+                "整理并输出班级课表PDF，包括一班、二班课表整理版，便于同学快速查看课程安排。",
+                "制作教材领取确认表、军训考勤表、军训服调换登记表、宿舍信息表等多类事务表格。",
+                "服务范围覆盖2个专业、4个班级、220余名学生，支持学院和班级在入学初期高频事务中的信息管理。",
+                "注重表格清晰度、规范性和可打印性，提升老师审核、同学填写与后续归档效率。"
+              ]
+            },
+            {
+              title: "自媒体与表达规划",
+              time: "规划中",
+              role: "内容策划 / 口播方向 / 深度思考输出",
+              stack: ["口播", "内容策划", "青年成长", "应用心理学"],
+              bullets: [
+                "计划围绕大学生活、青年成长、应用心理学、AI工具与深度思考方向进行内容输出。",
+                "注重将抽象观点转化为生活化表达，提升内容的可理解性、共鸣感与传播价值。",
+                "结合个人演讲经历和应用心理学专业背景，探索“表达能力 + 专业学习 + 自媒体输出”的成长路径。",
+                "目标建立具有思考深度、青年视角和实践价值的个人表达体系。"
+              ]
+            }
+          ]
+        }
+      ],
+      education: [
+        {
+          school: "河南财政金融学院",
+          major: "应用心理学（智能化方向）｜本科在读",
+          time: "2026.09 - 至今",
+          bullets: [
+            "就读于教育科学学院应用心理学（智能化方向），关注心理学、AI工具、学生成长与校园组织管理的交叉应用。",
+            "高考文科546分，河南省位次25716。",
+            "入学后快速参与学院会务、班级材料整理、跨班级信息汇总等事务，逐步承担更多学院级文档协作工作。"
+          ]
+        },
+        {
+          school: "西峡一高",
+          major: "高中毕业",
+          time: "高中阶段",
+          bullets: [
+            "长期担任学生干部，曾任校学生会主席、国旗队队员、高一军训负责人。",
+            "小学至高中连续12年担任班长，持续承担班级管理、通知传达、活动组织、矛盾协调等工作。",
+            "多次参与校级、全校级公开发言，具备较强的现场表达、组织动员与公众沟通能力。"
+          ]
+        }
+      ],
+      awards: [
+        "每年获得“优秀班长”相关奖项",
+        "优秀校学生会主席",
+        "优秀国旗队队员",
+        "市级演讲比赛二等奖",
+        "校级演讲比赛一等奖",
+        "4次优秀毕业生回校分享",
+        "10余次主持/演讲/公开发言"
+      ]
+    };
+
+    const $ = (sel, root = document) => root.querySelector(sel);
+    const el = (tag, cls, text) => {
+      const node = document.createElement(tag);
+      if (cls) node.className = cls;
+      if (text !== undefined) node.textContent = text;
+      return node;
+    };
+
+    function renderBadges(target, items) {
+      target.innerHTML = "";
+      items.forEach(item => target.appendChild(el("span", "badge", item)));
+    }
+
+    function renderList(items) {
+      const ul = el("ul", "clean");
+      items.forEach(item => ul.appendChild(el("li", "", item)));
+      return ul;
+    }
+
+    function renderCards(items, root, project = false) {
+      root.innerHTML = "";
+      const wrap = el("div", project ? "project-grid" : "timeline");
+      items.forEach(item => {
+        const card = el("article", "card" + (project ? " project-card" : ""));
+        const head = el("div", "card-head");
+        const left = el("div");
+        const title = el("h3", "", item.title);
+        if (item.link) {
+          const a = el("a");
+          a.href = item.link;
+          a.target = "_blank";
+          a.rel = "noopener";
+          a.textContent = item.title + " ↗";
+          title.textContent = "";
+          title.appendChild(a);
+        }
+        left.appendChild(title);
+        left.appendChild(el("div", "role", item.role));
+        head.appendChild(left);
+        head.appendChild(el("div", "meta", item.time));
+        card.appendChild(head);
+        if (item.stack) {
+          const stack = el("div", "stack");
+          item.stack.forEach(s => stack.appendChild(el("span", "mini", s)));
+          card.appendChild(stack);
+        }
+        card.appendChild(renderList(item.bullets));
+        wrap.appendChild(card);
+      });
+      root.appendChild(wrap);
+    }
+
+    function renderTabs(rootId, tabs, project = false) {
+      const root = $("#" + rootId);
+      const tablist = el("div", "tablist");
+      tablist.setAttribute("role", "tablist");
+      const panels = [];
+
+      tabs.forEach((tabData, i) => {
+        const tab = el("button", "tab", tabData.name);
+        const tabId = rootId + "-tab-" + i;
+        const panelId = rootId + "-panel-" + i;
+        tab.id = tabId;
+        tab.type = "button";
+        tab.setAttribute("role", "tab");
+        tab.setAttribute("aria-controls", panelId);
+        tab.setAttribute("aria-selected", i === 0 ? "true" : "false");
+        tab.tabIndex = i === 0 ? 0 : -1;
+        tab.addEventListener("click", () => activate(i));
+        tab.addEventListener("keydown", e => {
+          if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+          e.preventDefault();
+          const next = e.key === "ArrowRight" ? (i + 1) % tabs.length : (i - 1 + tabs.length) % tabs.length;
+          activate(next);
+          tablist.children[next].focus();
+        });
+        tablist.appendChild(tab);
+
+        const panel = el("div", "tabpanel");
+        panel.id = panelId;
+        panel.setAttribute("role", "tabpanel");
+        panel.setAttribute("aria-labelledby", tabId);
+        if (i !== 0) panel.hidden = true;
+        renderCards(tabData.items, panel, project);
+        panels.push(panel);
+      });
+
+      function activate(index) {
+        [...tablist.children].forEach((tab, i) => {
+          tab.setAttribute("aria-selected", i === index ? "true" : "false");
+          tab.tabIndex = i === index ? 0 : -1;
+          panels[i].hidden = i !== index;
+        });
+      }
+
+      root.appendChild(tablist);
+      panels.forEach(panel => root.appendChild(panel));
+    }
+
+    function init() {
+      document.title = resume.name + " | 个人简历";
+      $("#navName").textContent = resume.name;
+      $("#heroName").textContent = resume.name;
+      $("#summary").textContent = resume.summary;
+      $("#phoneBtn").href = "tel:" + resume.phone;
+      $("#githubBtn").href = resume.githubUrl;
+      renderBadges($("#tags"), resume.tags);
+
+      const journeyList = $("#journeyList");
+      resume.educationJourney.forEach(([label, value]) => {
+        const row = el("div", "journey-row");
+        row.appendChild(el("div", "journey-label", label));
+        row.appendChild(el("div", "journey-value", value));
+        journeyList.appendChild(row);
+      });
+
+      const contacts = $("#contacts");
+      resume.contacts.forEach(([k, v]) => {
+        const row = el("div", "contact-item");
+        row.appendChild(el("strong", "", k));
+        row.appendChild(el("span", "", v));
+        contacts.appendChild(row);
+      });
+
+      const metrics = $("#metrics");
+      resume.metrics.forEach(m => {
+        const card = el("article", "panel metric");
+        card.appendChild(el("b", "", m.value));
+        card.appendChild(el("span", "", m.label));
+        metrics.appendChild(card);
+      });
+
+      renderTabs("experienceTabs", resume.experienceTabs, false);
+      renderTabs("projectTabs", resume.projectTabs, true);
+
+      const edu = $("#eduCards");
+      edu.appendChild(el("h3", "", "教育背景"));
+      resume.education.forEach(item => {
+        const block = el("div", "", "");
+        block.style.marginTop = "16px";
+        const head = el("div", "card-head");
+        const left = el("div");
+        left.appendChild(el("h3", "", item.school));
+        left.appendChild(el("div", "role", item.major));
+        head.appendChild(left);
+        head.appendChild(el("div", "meta", item.time));
+        block.appendChild(head);
+        block.appendChild(renderList(item.bullets));
+        edu.appendChild(block);
+      });
+
+      renderBadges($("#awards"), resume.awards);
+      $("#footerText").textContent = "© " + new Date().getFullYear() + " " + resume.name + " · 更新时间 " + resume.updatedAt;
+
+      const email = resume.emailUser + "@" + resume.emailDomain;
+      $("#copyEmail").addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(email);
+          $("#copyEmail").textContent = "已复制邮箱";
+          setTimeout(() => $("#copyEmail").textContent = "复制邮箱", 1600);
+        } catch {
+          location.href = "mailto:" + email;
+        }
+      });
+
+      const toTop = $("#toTop");
+      window.addEventListener("scroll", () => {
+        toTop.classList.toggle("show", window.scrollY > 560);
+      }, { passive: true });
+      toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+      const pig = $("#pigEasterEgg");
+      const pigImage = $("#pigImage");
+      const startPigRoll = () => {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        pigImage.src = "google-pig-roll.webp?play=" + Date.now();
+        pigImage.alt = "正在翻滚的谷歌小猪";
+      };
+      const stopPigRoll = () => {
+        pigImage.src = "google-pig-still.png";
+        pigImage.alt = "一只等待翻滚的谷歌小猪";
+      };
+      pig.addEventListener("mouseenter", startPigRoll);
+      pig.addEventListener("mouseleave", stopPigRoll);
+      pig.addEventListener("focus", startPigRoll);
+      pig.addEventListener("blur", stopPigRoll);
+    }
+
+    init();
+  </script>
+</body>
+</html>
