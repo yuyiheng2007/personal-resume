@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>贪吃蛇游戏</title>
+  <style>
+    *{box-sizing:border-box} body{margin:0;min-height:100vh;display:grid;place-items:center;background:linear-gradient(135deg,#111827,#0f172a);color:#fff;font-family:Arial,"Microsoft YaHei",sans-serif}
+    .container{width:min(92vw,500px);text-align:center;padding:24px;background:#ffffff0d;border:1px solid #ffffff1f;border-radius:18px;box-shadow:0 20px 60px #0008}
+    h1{margin:0 0 18px;color:#4ade80;text-shadow:0 0 20px #22c55e88}.game-info{display:flex;justify-content:space-around;background:#ffffff12;padding:12px;border-radius:12px;margin-bottom:15px}
+    .info-label{font-size:13px;color:#94a3b8}.info-value{font-size:20px;font-weight:bold;margin-top:4px}#score{color:#4ade80}#highScore{color:#fb923c}#gameStatus{color:#fde047}
+    canvas{display:block;width:min(100%,400px);height:auto;margin:auto;background:#050b14;border:3px solid #22c55e;border-radius:10px;box-shadow:0 0 24px #22c55e44}
+    button{margin:16px 0 10px;padding:11px 28px;border:0;border-radius:9px;background:#22c55e;color:#052e16;font-size:16px;font-weight:bold;cursor:pointer}button:hover{background:#4ade80;transform:translateY(-1px)}
+    .help{margin-top:8px;padding:12px;border-radius:10px;background:#ffffff0d;color:#cbd5e1;font-size:14px;line-height:1.8}.key{display:inline-block;padding:1px 7px;margin:0 2px;border:1px solid #64748b;border-radius:4px;background:#1e293b;color:#fff}
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>🐍 贪吃蛇游戏</h1>
+    <section class="game-info">
+      <div><div class="info-label">当前得分</div><div id="score" class="info-value">0</div></div>
+      <div><div class="info-label">最高得分</div><div id="highScore" class="info-value">0</div></div>
+      <div><div class="info-label">游戏状态</div><div id="gameStatus" class="info-value">准备开始</div></div>
+    </section>
+    <canvas id="gameCanvas"></canvas>
+    <button id="startBtn">开始游戏</button>
+    <div class="help"><b>操作说明</b><br><span class="key">↑</span><span class="key">↓</span><span class="key">←</span><span class="key">→</span> 或 <span class="key">W</span><span class="key">A</span><span class="key">S</span><span class="key">D</span> 控制方向</div>
+  </main>
+  <script>
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const scoreElement = document.getElementById('score');
+const highScoreElement = document.getElementById('highScore');
+const gameStatusElement = document.getElementById('gameStatus');
+const startBtn = document.getElementById('startBtn');
+const GRID_SIZE = 20;
+const CELL_SIZE = 20;
+const INITIAL_SPEED = 150;
+canvas.width = GRID_SIZE * CELL_SIZE;
+canvas.height = GRID_SIZE * CELL_SIZE;
+let snake = [{ x: 10, y: 10 }];
+let food = { x: 15, y: 10 };
+let dx = 1;
+let dy = 0;
+let score = 0;
+let highScore = localStorage.getItem('snakeHighScore') || 0;
+let gameLoop;
+let isGameRunning = false;
+let speed = INITIAL_SPEED;
+highScoreElement.textContent = highScore;
+function draw() {
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    snake.forEach((segment, index) => {
+        ctx.fillStyle = index === 0 ? '#8BC34A' : '#4CAF50';
+        ctx.fillRect(segment.x * CELL_SIZE, segment.y * CELL_SIZE, CELL_SIZE - 1, CELL_SIZE - 1);
+    });
+    ctx.fillStyle = '#FF9800';
+    ctx.fillRect(food.x * CELL_SIZE, food.y * CELL_SIZE, CELL_SIZE - 1, CELL_SIZE - 1);
+}
+function moveSnake() {
+    const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+    if (head.x < 0 || head.x >= GRID_SIZE || head.y < 0 || head.y >= GRID_SIZE || snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+        gameOver();
+        return;
+    }
+    snake.unshift(head);
+    if (head.x === food.x && head.y === food.y) {
+        score += 10;
+        scoreElement.textContent = score;
+        if (score > highScore) {
+            highScore = score;
+            highScoreElement.textContent = highScore;
+            localStorage.setItem('snakeHighScore', highScore);
+        }
+        generateFood();
+        speed = Math.max(70, speed - 2);
+        clearInterval(gameLoop);
+        gameLoop = setInterval(gameUpdate, speed);
+    } else snake.pop();
+    draw();
+}
+function generateFood() {
+    let newFood;
+    do newFood = {x: Math.floor(Math.random() * GRID_SIZE), y: Math.floor(Math.random() * GRID_SIZE)};
+    while (snake.some(segment => segment.x === newFood.x && segment.y === newFood.y));
+    food = newFood;
+}
+function gameUpdate() { moveSnake(); }
+function startGame() {
+    if (isGameRunning) clearInterval(gameLoop);
+    snake = [{ x: 10, y: 10 }]; dx = 1; dy = 0; score = 0; speed = INITIAL_SPEED;
+    scoreElement.textContent = score;
+    gameStatusElement.textContent = '游戏中';
+    isGameRunning = true;
+    startBtn.textContent = '重新开始';
+    generateFood();
+    gameLoop = setInterval(gameUpdate, speed);
+    draw();
+}
+function gameOver() {
+    clearInterval(gameLoop);
+    isGameRunning = false;
+    gameStatusElement.textContent = '游戏结束';
+    startBtn.textContent = '重新开始';
+}
+function handleKeyPress(e) {
+    const key = e.key.toLowerCase();
+    const goingUp = dy === -1, goingDown = dy === 1, goingRight = dx === 1, goingLeft = dx === -1;
+    if ((key === 'arrowleft' || key === 'a') && !goingRight) { dx = -1; dy = 0; }
+    else if ((key === 'arrowup' || key === 'w') && !goingDown) { dx = 0; dy = -1; }
+    else if ((key === 'arrowright' || key === 'd') && !goingLeft) { dx = 1; dy = 0; }
+    else if ((key === 'arrowdown' || key === 's') && !goingUp) { dx = 0; dy = 1; }
+}
+document.addEventListener('keydown', handleKeyPress);
+startBtn.addEventListener('click', startGame);
+draw();
+  </script>
+</body>
+</html>

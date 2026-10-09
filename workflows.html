@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>项目工作流程 | 余怡衡个人成果</title>
+  <meta name="description" content="余怡衡六个项目的工作流程、个人职责、成果证据和面试追问。">
+  <link rel="stylesheet" href="showcase.css">
+</head>
+<body>
+  <nav class="site-nav"><div class="nav-shell"><a class="brand" href="index.html"><span class="brand-dot"></span>余怡衡 · 成果中心</a><div class="page-links"><a href="index.html">简历首页</a><a href="certificates.html">学习与证书</a><a href="projects.html">项目</a><a href="workflows.html" aria-current="page">工作流程</a><a href="speeches.html">口播稿</a></div></div></nav>
+  <header class="hero workflow-hero"><div class="shell"><p class="eyebrow">How I work</p><h1>从问题到成果，我具体做了什么</h1><p>这页按面试官常问的顺序展开：为什么做、我负责什么、过程怎么推进、遇到什么难点、留下了哪些证据、下一步怎么验证。</p></div></header>
+
+  <main class="workflow-main"><div class="shell">
+    <nav class="workflow-nav" aria-label="项目流程目录">
+      <a href="#campus-map">校园地图</a><a href="#life-assistant">生活助手</a><a href="#knowledge-base">知识库</a><a href="#portfolio">个人网站</a><a href="#ink-mountain">水墨交互</a><a href="#snake">贪吃蛇</a>
+    </nav>
+
+    <article class="workflow-case" id="campus-map">
+      <div class="case-heading"><div><p class="case-number">01 / 06</p><h2>校迹校园交互地图</h2><p>我做得最完整的一次校园产品实践。它经历了数据整理、网页原型、教师沟通和方案回改，不只是做出一个地图页面。</p></div><a class="button primary" href="demos/campus-map/index.html" target="_blank">打开地图 MVP</a></div>
+      <div class="process-steps">
+        <section><span>1</span><h3>发现问题</h3><p>新生进入龙子湖校区后，能看到静态地图，却不知道建筑用途、办事地点和生活服务在哪里。</p></section>
+        <section><span>2</span><h3>整理数据</h3><p>收集公开地点信息，建立地点底稿，按教学、生活、运动和服务等类别整理名称、坐标和用途。</p></section>
+        <section><span>3</span><h3>完成原型</h3><p>制作可搜索、可分类筛选、可查看地点详情的网页 MVP，让地图从“看位置”变成“找信息”。</p></section>
+        <section><span>4</span><h3>接受质疑</h3><p>向老师汇报后，我意识到原型不等于可持续项目。用户从哪里来、信息由谁维护、错误如何修正，都要回答。</p></section>
+        <section><span>5</span><h3>调整方案</h3><p>补充用户验证、内容维护和长期运营思路，形成项目计划书与复盘，不再急着堆路线、评价等功能。</p></section>
+      </div>
+      <div class="interview-grid"><section><h3>我负责的部分</h3><p>需求分析、地点数据整理、产品结构、网页 MVP、项目计划书、教师沟通与复盘。</p></section><section><h3>面试官可能追问</h3><p>“你怎么证明新生真的需要？”“地点信息变更怎么办？”“AI 帮了你哪些，哪些决定是你做的？”</p></section><section><h3>诚实边界</h3><p>项目仍在验证和迭代阶段。我不会把规划中的用户评价、校内合作或商业模式说成已经发生。</p></section><section><h3>下一步</h3><p>用小范围任务测试观察同学能否独立找地点、理解用途，再决定是否增加路线和通知整合。</p></section></div>
+    </article>
+
+    <article class="workflow-case" id="life-assistant">
+      <div class="case-heading"><div><p class="case-number">02 / 06</p><h2>大学生活管理助手</h2><p>这是从我自己的大学生活需求出发做出的工具，重点不在功能数量，而在把分散信息重新组织成可长期使用的系统。</p></div><a class="button primary" href="https://yuyiheng2007.github.io/college-life-assistant/" target="_blank" rel="noopener">打开应用</a></div>
+      <div class="process-steps">
+        <section><span>1</span><h3>列出真实场景</h3><p>课表、待办、计划、健身、收支和 Vlog 素材分散在不同应用里，记录方式也不统一。</p></section>
+        <section><span>2</span><h3>拆成模块</h3><p>先确定仪表盘和高频入口，再划分课表、日程、健身饮食、财务、待办、素材库和设置。</p></section>
+        <section><span>3</span><h3>选择存储方式</h3><p>普通数据放在 localStorage，体积更大的媒体资料使用 IndexedDB，尽量让数据留在本机浏览器。</p></section>
+        <section><span>4</span><h3>交付多种版本</h3><p>保留本地版、单文件版、分享版和线上版本，方便自己使用，也方便别人不安装软件直接打开。</p></section>
+      </div>
+      <div class="interview-grid"><section><h3>我负责的部分</h3><p>需求拆解、功能规划、页面设计、模块整合、测试、部署和使用说明。编码过程使用了 AI 辅助。</p></section><section><h3>面试官可能追问</h3><p>“为什么不用现成应用？”“浏览器数据丢失怎么办？”“功能很多，核心用户任务是什么？”</p></section><section><h3>关键取舍</h3><p>本地存储提高了隐私性和使用门槛，但清理浏览器数据会带来风险，因此备份与恢复是后续重点。</p></section><section><h3>下一步</h3><p>把备份恢复做成可视化操作，减少使用者打开开发者工具的需要，并收集真实使用反馈。</p></section></div>
+    </article>
+
+    <article class="workflow-case" id="knowledge-base">
+      <div class="case-heading"><div><p class="case-number">03 / 06</p><h2>个人知识库建设</h2><p>我需要处理学校通知、个人资料、项目文件和学习笔记。知识库解决的是以后能不能找到、能不能确认来源，而不是把文件堆进 Obsidian。</p></div></div>
+      <div class="process-steps">
+        <section><span>1</span><h3>识别混乱来源</h3><p>资料散在下载目录、聊天截图、桌面和多个项目文件夹，同一主题经常出现多个版本。</p></section>
+        <section><span>2</span><h3>建立五层结构</h3><p>将内容分成原始资料、编译笔记、方法规则、输出成果和复盘记录，保留来源与加工关系。</p></section>
+        <section><span>3</span><h3>写清操作规则</h3><p>为学校材料、名单、敏感信息、成果文件和删除操作分别设置归档与核对规则。</p></section>
+        <section><span>4</span><h3>持续维护</h3><p>通过索引、项目关联和同步脚本减少重复查找，并在新材料进入时更新结构化记录。</p></section>
+      </div>
+      <div class="interview-grid"><section><h3>我负责的部分</h3><p>目录层级、索引规则、资料流转、隐私边界、同步流程和日常维护。</p></section><section><h3>面试官可能追问</h3><p>“为什么不用普通文件夹？”“怎样避免 AI 把错误内容写进档案？”“知识库越来越大后怎么体检？”</p></section><section><h3>不能公开的部分</h3><p>真实库包含手机号、身份证、同学名单和学校材料。网站只展示流程，不公开私密文件。</p></section><section><h3>下一步</h3><p>补充自动体检、过期信息提醒和项目成果统计，让维护成本随资料增长保持可控。</p></section></div>
+    </article>
+
+    <article class="workflow-case" id="portfolio">
+      <div class="case-heading"><div><p class="case-number">04 / 06</p><h2>个人简介网站</h2><p>这个网站不是把 Word 简历搬到网页，而是重新设计浏览顺序，让老师或面试官先看到证据，再决定是否深入了解。</p></div><a class="button primary" href="index.html">查看简历首页</a></div>
+      <div class="process-steps">
+        <section><span>1</span><h3>盘点材料</h3><p>整理个人经历、校园事务、项目、证书和公开表达，删除重复表述和没有证据的包装。</p></section>
+        <section><span>2</span><h3>重建信息层级</h3><p>首页负责快速判断，证书页解释学过什么，项目页提供成果入口，流程页回答怎么做。</p></section>
+        <section><span>3</span><h3>迭代视觉方案</h3><p>尝试过交互版、叙事版和工作室风格，最终保留易读的正式版，并做好移动端和打印适配。</p></section>
+        <section><span>4</span><h3>保持可更新</h3><p>证书、项目和口播稿使用独立页面，后续新增成果时不需要反复改动整份简历。</p></section>
+      </div>
+      <div class="interview-grid"><section><h3>我负责的部分</h3><p>内容梳理、信息架构、页面设计、项目描述、响应式适配和发布维护。</p></section><section><h3>面试官可能追问</h3><p>“为什么做多个版本？”“怎样判断信息是否太多？”“这个网站和普通作品集有什么区别？”</p></section><section><h3>我的判断</h3><p>做过项目和让别人快速看懂项目是两件事。网站首先服务浏览者，不应该只满足自己的审美。</p></section><section><h3>下一步</h3><p>继续减少重复内容，给新增项目保留统一的证据入口和复盘模板。</p></section></div>
+    </article>
+
+    <article class="workflow-case" id="ink-mountain">
+      <div class="case-heading"><div><p class="case-number">05 / 06</p><h2>山河入墨水墨交互</h2><p>一次创意技术实验。我想让水墨画不只是一张背景图，而是能跟随人的动作、手机方向和设备性能变化。</p></div><a class="button primary" href="demos/ink-mountain/index.html" target="_blank">打开交互网页</a></div>
+      <div class="process-steps">
+        <section><span>1</span><h3>定义交互方式</h3><p>电脑端支持鼠标与摄像头手势，手机端加入陀螺仪，让用户用不同设备都能控制画面。</p></section>
+        <section><span>2</span><h3>整合技术</h3><p>使用 Three.js 负责图形和粒子，MediaPipe 识别手势，设备传感器提供移动端方向数据。</p></section>
+        <section><span>3</span><h3>处理性能差异</h3><p>设置流畅、均衡、精细三档粒子质量，允许用户根据设备性能主动取舍视觉效果。</p></section>
+        <section><span>4</span><h3>说明权限边界</h3><p>摄像头模式需要安全上下文和用户授权，视频只在浏览器本地处理，不上传远端。</p></section>
+      </div>
+      <div class="interview-grid"><section><h3>我负责的部分</h3><p>交互方式设计、页面整合、运行说明和多设备适配思路，开发过程使用 AI 辅助。</p></section><section><h3>面试官可能追问</h3><p>“手势识别失败怎么办？”“低端设备如何降级？”“为什么需要三种控制方式？”</p></section><section><h3>诚实边界</h3><p>外部库首次加载需要联网，摄像头模式受浏览器权限与设备性能影响。</p></section><section><h3>下一步</h3><p>减少外部依赖，补充兼容性测试和移动端操作提示，记录不同设备的性能表现。</p></section></div>
+    </article>
+
+    <article class="workflow-case" id="snake">
+      <div class="case-heading"><div><p class="case-number">06 / 06</p><h2>MarsCode 贪吃蛇</h2><p>项目体量不大，但它让我第一次把 JavaScript 基础知识组合成一个从开始到结束都能运行的作品。</p></div><a class="button primary" href="demos/snake/index.html" target="_blank">打开游戏</a></div>
+      <div class="process-steps">
+        <section><span>1</span><h3>拆分状态</h3><p>区分蛇身、方向、食物、分数、最高分和游戏状态，避免把所有逻辑写进一个函数。</p></section>
+        <section><span>2</span><h3>建立游戏循环</h3><p>按固定节奏更新位置、判断输入、检测碰撞，再用 Canvas 重新绘制画面。</p></section>
+        <section><span>3</span><h3>补齐完整体验</h3><p>加入开始、重新开始、得分、最高分和速度变化，使它成为可玩的成果，而不是代码片段。</p></section>
+      </div>
+      <div class="interview-grid"><section><h3>我负责的部分</h3><p>页面结构、Canvas 绘制、游戏循环、方向控制、碰撞和得分逻辑。</p></section><section><h3>面试官可能追问</h3><p>“怎样防止反向移动？”“食物如何避免生成在蛇身上？”“速度变化会影响什么？”</p></section><section><h3>项目价值</h3><p>它不能证明复杂工程能力，但能证明我会把基础语法放进真实场景，并完成交付。</p></section><section><h3>下一步</h3><p>增加移动端触摸、暂停、难度设置和简单排行榜。</p></section></div>
+    </article>
+  </div></main>
+  <footer class="footer">余怡衡个人成果库 · 项目工作流程</footer>
+</body>
+</html>

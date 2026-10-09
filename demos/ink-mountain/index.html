@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#070806" />
+  <title>山河入墨｜粒子山水交互</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <style>
+    :root{--paper:#d9d2bd;--ink:#090a08;--mist:#8c958c;--cinnabar:#a13a2a;--line:rgba(217,210,189,.25)}
+    *{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--ink);color:var(--paper);font-family:"Noto Serif SC","Songti SC",SimSun,serif}
+    body:before{content:"";position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.14;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E")}
+    canvas.webgl{position:fixed;inset:0;display:block}
+    .vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(circle at 50% 45%,transparent 28%,rgba(0,0,0,.7) 105%),linear-gradient(90deg,rgba(0,0,0,.32),transparent 24%,transparent 76%,rgba(0,0,0,.32))}
+    .hud{position:fixed;inset:0;z-index:3;pointer-events:none;padding:max(24px,4vw)}
+    .brand{position:absolute;left:max(24px,4vw);top:max(25px,5vh);writing-mode:vertical-rl;letter-spacing:.34em;text-shadow:0 2px 18px #000}
+    .brand h1{font-size:clamp(28px,4vw,54px);font-weight:400;margin:0;line-height:1}.brand p{margin:16px 13px 0 0;color:#9c9b8e;font-size:12px}
+    .seal{display:grid;place-items:center;width:31px;height:31px;margin:12px 6px 0 0;background:var(--cinnabar);color:#e9dfc9;font-size:11px;line-height:1.05;writing-mode:horizontal-tb;letter-spacing:0;box-shadow:0 0 30px rgba(161,58,42,.32)}
+    .quote{position:absolute;right:max(24px,4vw);top:max(26px,5vh);max-width:240px;text-align:right;color:#a9aa9f;font-size:12px;letter-spacing:.2em;line-height:2}
+    .panel{pointer-events:auto;position:absolute;right:max(18px,3vw);bottom:max(18px,3vw);width:min(390px,calc(100vw - 36px));padding:18px 18px 16px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(15,17,14,.82),rgba(7,8,6,.62));backdrop-filter:blur(14px);box-shadow:0 18px 70px rgba(0,0,0,.35)}
+    .panel:before,.panel:after{content:"";position:absolute;width:15px;height:15px;border-color:var(--paper);opacity:.6}.panel:before{left:-1px;top:-1px;border-left:1px solid;border-top:1px solid}.panel:after{right:-1px;bottom:-1px;border-right:1px solid;border-bottom:1px solid}
+    .panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.eyebrow{font-family:system-ui,sans-serif;font-size:10px;letter-spacing:.22em;color:#8b8e84}.status{display:flex;align-items:center;gap:7px;font-size:11px;color:#b2b3aa}.status i{width:6px;height:6px;border-radius:50%;background:#9eab93;box-shadow:0 0 10px #bfcab8}
+    .modes{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.mode{appearance:none;border:1px solid rgba(217,210,189,.15);background:rgba(255,255,255,.025);color:#888b82;padding:11px 5px;cursor:pointer;font:12px inherit;letter-spacing:.12em;transition:.25s}.mode:hover{border-color:rgba(217,210,189,.4);color:var(--paper)}.mode.active{color:#eee5d1;border-color:rgba(217,210,189,.55);background:rgba(217,210,189,.08);box-shadow:inset 0 -2px 0 var(--cinnabar)}
+    .hint{min-height:40px;margin:13px 2px 8px;color:#94968d;font-size:11px;line-height:1.8}.controls{display:flex;gap:8px}.ghost{flex:1;border:0;border-top:1px solid rgba(217,210,189,.13);background:transparent;color:#767970;padding:10px 0 0;cursor:pointer;font:10px system-ui,sans-serif;letter-spacing:.08em}.ghost:hover{color:#d9d2bd}.ghost:disabled{opacity:.35;cursor:not-allowed}
+    .cam{position:absolute;left:18px;bottom:18px;width:112px;aspect-ratio:4/3;border:1px solid rgba(217,210,189,.18);opacity:0;transform:translateY(8px);transition:.3s;overflow:hidden;background:#050604;pointer-events:none}.cam.show{opacity:.72;transform:none}.cam video,.cam canvas{position:absolute;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+    .loading{position:fixed;inset:0;z-index:10;display:grid;place-items:center;background:#070806;transition:opacity .8s,visibility .8s}.loading.done{opacity:0;visibility:hidden}.loading-inner{text-align:center}.loading-mark{font-size:42px;font-weight:400;letter-spacing:.4em;margin-right:-.4em}.loading-line{width:180px;height:1px;background:#272923;margin:24px auto 12px;overflow:hidden}.loading-line span{display:block;height:100%;width:45%;background:#b6ad96;animation:load 1.7s ease-in-out infinite}.loading small{color:#777b73;letter-spacing:.18em}@keyframes load{0%{transform:translateX(-110%)}100%{transform:translateX(240%)}}
+    .toast{position:fixed;z-index:20;left:50%;top:24px;transform:translate(-50%,-12px);padding:10px 16px;background:rgba(18,20,17,.92);border:1px solid var(--line);color:#c8c3b4;font-size:12px;opacity:0;pointer-events:none;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}
+    @media(max-width:680px){.hud{padding:18px}.brand{left:19px;top:22px}.brand h1{font-size:30px}.brand p,.quote{display:none}.panel{right:12px;bottom:12px;width:calc(100vw - 24px);padding:14px}.cam{left:12px;bottom:174px;width:88px}.hint{min-height:34px;margin:10px 2px 5px}.mode{padding:9px 4px}}
+    @media(prefers-reduced-motion:reduce){.loading-line span{animation:none}}
+  </style>
+</head>
+<body>
+  <div class="loading" id="loading"><div class="loading-inner"><div class="loading-mark">山河</div><div class="loading-line"><span></span></div><small>研墨 · 起势 · 入境</small></div></div>
+  <div class="vignette"></div>
+  <main class="hud">
+    <header class="brand"><h1>山河入墨</h1><p>万壑有声 · 一川无尽</p><b class="seal">游<br>心</b></header>
+    <div class="quote">远岫浮岚，长河落墨<br>以手为笔，以天地为卷</div>
+    <section class="panel" aria-label="交互控制">
+      <div class="panel-head"><span class="eyebrow">漫游方式 / CONTROL</span><span class="status"><i></i><b id="status">鼠标模式</b></span></div>
+      <div class="modes">
+        <button class="mode active" data-mode="mouse">鼠标</button>
+        <button class="mode" data-mode="hand">手势</button>
+        <button class="mode" data-mode="gyro">陀螺仪</button>
+      </div>
+      <p class="hint" id="hint">移动指针游览山河，滚轮推近远景，按住拖动可改变视角。</p>
+      <div class="controls"><button class="ghost" id="quality">画质：自适应</button><button class="ghost" id="reset">归于初境</button><button class="ghost" id="fullscreen">全屏入画</button></div>
+    </section>
+    <div class="cam" id="camBox"><video id="video" autoplay playsinline muted></video><canvas id="handCanvas"></canvas></div>
+  </main>
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

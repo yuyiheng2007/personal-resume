@@ -4,6 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>余怡衡 | 个人简历</title>
+  <meta name="theme-color" content="#030712">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     :root {
       color-scheme: light;
@@ -501,8 +507,827 @@
       .subtitle { font-size: 14px; }
     }
   </style>
+  <style>
+    /* 正式版入场封面：默认直接可见，避免页面加载时闪现正文。 */
+    body.gate-open { overflow: hidden; }
+    .resume-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background: transparent;
+      opacity: 1;
+      visibility: visible;
+      transition: visibility 0s linear 1.45s;
+    }
+    .resume-gate::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .20;
+      background-image: radial-gradient(rgba(255, 226, 143, .25) .55px, transparent .55px);
+      background-size: 5px 5px;
+      mask-image: linear-gradient(to bottom, transparent, #000 30%, #000 70%, transparent);
+    }
+    .resume-gate.is-opening { visibility: hidden; pointer-events: none; }
+    .gate-door {
+      position: absolute;
+      inset-block: 0;
+      z-index: 0;
+      width: 50.05%;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 100% 42%, rgba(212, 175, 55, .09), transparent 28rem),
+        radial-gradient(circle at 100% 120%, rgba(146, 104, 28, .08), transparent 30rem),
+        #020202;
+      box-shadow: inset 0 0 70px rgba(212,175,55,.025);
+      transform: translate3d(0,0,0);
+      transition: transform 1.35s cubic-bezier(.76,0,.24,1);
+      will-change: transform;
+    }
+    .gate-door::after {
+      content: "";
+      position: absolute;
+      inset-block: 0;
+      width: 1px;
+      opacity: .32;
+      background: linear-gradient(to bottom, transparent 8%, #8d661f 28%, #ffe49a 50%, #8d661f 72%, transparent 92%);
+      box-shadow: 0 0 16px rgba(232,198,106,.24);
+    }
+    .gate-door-left { left: 0; }
+    .gate-door-left::after { right: 0; }
+    .gate-door-right {
+      right: 0;
+      background:
+        radial-gradient(circle at 0 42%, rgba(212, 175, 55, .09), transparent 28rem),
+        radial-gradient(circle at 0 120%, rgba(146, 104, 28, .08), transparent 30rem),
+        #020202;
+    }
+    .gate-door-right::after { left: 0; }
+    .resume-gate.is-opening .gate-door-left { transform: translate3d(-101%,0,0); }
+    .resume-gate.is-opening .gate-door-right { transform: translate3d(101%,0,0); }
+    .resume-gate.is-opening .gate-stage {
+      opacity: 0;
+      transform: translate3d(0,0,0) scale(.94);
+      filter: blur(5px);
+    }
+    .gate-stage {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      justify-items: center;
+      gap: 24px;
+      padding: 28px;
+      text-align: center;
+      opacity: 1;
+      transform: translate3d(0,0,0) scale(1);
+      filter: blur(0);
+      transition: opacity .28s ease, transform .42s cubic-bezier(.4,0,.2,1), filter .32s ease;
+    }
+    .gate-card {
+      position: relative;
+      isolation: isolate;
+      display: grid;
+      place-items: center;
+      min-height: 112px;
+      padding: 2px;
+      overflow: hidden;
+      border: 0;
+      border-radius: 24px;
+      background: transparent;
+      color: #e8c66a;
+      cursor: pointer;
+      box-shadow: 0 28px 90px rgba(0,0,0,.72), 0 0 45px rgba(212,175,55,.05);
+    }
+    .gate-card::before {
+      content: "";
+      position: absolute;
+      z-index: -2;
+      width: 34%;
+      height: 310%;
+      left: 33%;
+      top: -105%;
+      background: linear-gradient(180deg, transparent 5%, #8a641e 22%, #ffe49a 48%, #b7872f 72%, transparent 95%);
+      animation: gateGoldSpin 4.6s linear infinite;
+      will-change: transform;
+    }
+    .gate-card::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 2px;
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(18,16,10,.99), rgba(2,2,2,.99) 68%);
+      box-shadow: inset 0 1px 0 rgba(255,235,175,.08), inset 0 0 45px rgba(212,175,55,.035);
+    }
+    @keyframes gateGoldSpin { to { transform: rotate(360deg); } }
+    .gate-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      padding: 20px 30px;
+      font-size: clamp(42px, 8vw, 86px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -.06em;
+      white-space: nowrap;
+    }
+    .gate-name {
+      color: transparent;
+      background: linear-gradient(115deg, #7d591c 2%, #f9df91 34%, #b88228 58%, #fff0ba 78%, #8d661f);
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      filter: drop-shadow(0 2px 12px rgba(212,175,55,.16));
+      animation: gateGoldShimmer 4s ease-in-out infinite alternate;
+    }
+    @keyframes gateGoldShimmer { to { background-position: 100% 0; } }
+    .gate-suffix {
+      display: inline-block;
+      max-width: 0;
+      margin-left: 0;
+      overflow: hidden;
+      color: #d7b65b;
+      opacity: 0;
+      transform: translate3d(-18px, 0, 0);
+      filter: blur(8px);
+      will-change: max-width, opacity, transform, filter;
+    }
+    .gate-card.is-revealing .gate-suffix,
+    .gate-card.is-revealed .gate-suffix {
+      animation: gateRevealSuffix 3s cubic-bezier(.18,.85,.22,1) forwards;
+    }
+    @keyframes gateRevealSuffix {
+      0% { max-width: 0; margin-left: 0; opacity: 0; transform: translate3d(-18px,0,0); filter: blur(8px); }
+      62% { opacity: .78; }
+      100% { max-width: 5.2em; margin-left: .28em; opacity: 1; transform: translate3d(0,0,0); filter: blur(0); }
+    }
+    .gate-enter {
+      padding: 7px 15px;
+      border: 0;
+      background: transparent;
+      color: rgba(249, 223, 145, .72);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .34em;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translate3d(0, 10px, 0);
+      transition: opacity .45s ease, transform .45s ease, color .2s ease, visibility .45s;
+    }
+    .resume-gate.is-ready .gate-enter {
+      opacity: 1;
+      visibility: visible;
+      transform: translate3d(0, 0, 0);
+    }
+    .gate-enter::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 1px;
+      margin: 7px auto 0;
+      background: linear-gradient(90deg, transparent, #e8c66a, transparent);
+      transition: width .3s ease;
+    }
+    .gate-enter:hover { color: #ffe9aa; }
+    .gate-enter:hover::after, .gate-enter:focus-visible::after { width: 100%; }
+    .gate-card:focus-visible { outline: 2px solid #d7b65b; outline-offset: 6px; }
+    @media (max-width: 560px) {
+      .gate-stage { gap: 18px; padding: 18px; }
+      .gate-card { min-height: 92px; border-radius: 20px; }
+      .gate-card::after { border-radius: 18px; }
+      .gate-title { padding: 18px 20px; font-size: clamp(38px, 12vw, 54px); }
+      .gate-enter { font-size: 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .gate-card::before, .gate-name { animation: none !important; }
+      .resume-gate, .gate-enter { transition-duration: .01ms !important; }
+      .gate-door, .gate-stage { transition-duration: .01ms !important; }
+      .gate-card.is-revealing .gate-suffix,
+      .gate-card.is-revealed .gate-suffix { animation-duration: .01ms !important; }
+    }
+
+    :root {
+      color-scheme: dark;
+      --bg: #030712;
+      --surface: rgba(15, 23, 42, .62);
+      --surface-strong: rgba(15, 23, 42, .82);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --line: rgba(255, 255, 255, .10);
+      --primary: #22d3ee;
+      --primary-2: #67e8f9;
+      --accent: #818cf8;
+      --accent-2: #a5b4fc;
+      --shadow: 0 24px 64px rgba(0, 0, 0, .28);
+      --shadow-soft: 0 12px 36px rgba(0, 0, 0, .20);
+      --radius: 24px;
+      --radius-sm: 18px;
+    }
+
+    html { background: var(--bg); overflow-x: hidden; }
+    body {
+      position: relative;
+      min-width: 0;
+      overflow-x: hidden;
+      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(circle at 8% 6%, rgba(6, 182, 212, .12), transparent 32rem),
+        radial-gradient(circle at 92% 92%, rgba(79, 70, 229, .14), transparent 34rem),
+        #030712;
+      color: var(--text);
+    }
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      z-index: -1;
+      width: 560px;
+      height: 560px;
+      border-radius: 50%;
+      filter: blur(140px);
+      opacity: .13;
+      pointer-events: none;
+    }
+    body::before { left: -170px; top: -180px; background: #22d3ee; }
+    body::after { right: -190px; bottom: -210px; background: #4f46e5; }
+    ::selection { background: rgba(34, 211, 238, .28); color: #fff; }
+    :focus-visible { outline: 2px solid #22d3ee; outline-offset: 3px; }
+
+    .nav {
+      border-bottom-color: rgba(255,255,255,.08);
+      background: rgba(3, 7, 18, .72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+    .brand { letter-spacing: -.02em; }
+    .mark { border-radius: 12px; border-color: rgba(255,255,255,.14); }
+    .nav-links a:hover { color: #67e8f9; background: rgba(34,211,238,.08); }
+    .icon-btn, .btn {
+      border-color: rgba(255,255,255,.11);
+      background: rgba(15,23,42,.70);
+      color: #e2e8f0;
+      backdrop-filter: blur(16px);
+    }
+    .btn:hover, .icon-btn:hover {
+      border-color: rgba(34,211,238,.38);
+      color: #fff;
+      box-shadow: 0 0 28px rgba(34,211,238,.14);
+    }
+    .btn.primary {
+      color: #020617;
+      background: linear-gradient(135deg, #67e8f9, #818cf8);
+      box-shadow: 0 14px 34px rgba(34,211,238,.18);
+    }
+    .btn.primary:hover { box-shadow: 0 0 34px rgba(34,211,238,.30); }
+    .btn svg, .section-title-icon svg, .contact-label svg, .badge svg, .role svg, .mini svg {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 auto;
+      stroke-width: 1.8;
+    }
+
+    .hero { padding-top: 72px; }
+    .panel, .tabs, .card {
+      border-color: rgba(255,255,255,.10);
+      background: rgba(15,23,42,.60);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.04), var(--shadow-soft);
+    }
+    .hero-main::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 56%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(103,232,249,.8), transparent);
+    }
+    .hero-avatar {
+      border-radius: 22px;
+      background: #111827;
+      border-color: rgba(255,255,255,.12);
+      box-shadow: 0 0 0 1px rgba(34,211,238,.16), 0 18px 45px rgba(0,0,0,.35);
+    }
+    h1 {
+      color: #fff;
+      font-size: clamp(44px, 7vw, 74px) !important;
+      line-height: 1 !important;
+      font-weight: 800 !important;
+      letter-spacing: -.055em;
+      text-shadow: 0 0 40px rgba(34,211,238,.10);
+    }
+    .subtitle { color: #cbd5e1; line-height: 1.85; }
+    .motto {
+      border-left-color: #22d3ee;
+      background: linear-gradient(90deg, rgba(34,211,238,.09), rgba(99,102,241,.04));
+      color: #e2e8f0;
+      border-radius: 0 16px 16px 0;
+      font-family: "STKaiti", "KaiTi", "Microsoft YaHei", sans-serif;
+    }
+    .badge, .mini {
+      border-color: rgba(34,211,238,.20);
+      background: rgba(6,182,212,.09);
+      color: #a5f3fc;
+    }
+    .badge { font-weight: 600; }
+    .profile-card h2, .section-head h2 { color: #fff; font-size: 28px; line-height: 1.2; font-weight: 800 !important; letter-spacing: -.03em; }
+    .profile-card h2 { font-size: 22px; }
+    .contact-item {
+      border-color: rgba(255,255,255,.08);
+      background: rgba(2,6,23,.34);
+      color: #94a3b8;
+    }
+    .contact-item:hover { border-color: rgba(34,211,238,.25); background: rgba(6,182,212,.06); }
+    .contact-label { display: inline-flex; align-items: center; gap: 8px; color: #e2e8f0 !important; }
+    .contact-label svg { color: #22d3ee; }
+
+    .section-head { align-items: center; }
+    .section-title-icon { display: inline-flex; align-items: center; gap: 12px; }
+    .section-title-icon > span {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(34,211,238,.20);
+      border-radius: 12px;
+      background: rgba(34,211,238,.08);
+      color: #67e8f9;
+    }
+    .journey-kicker { color: #67e8f9; }
+    .journey-title { color: #fff; font-size: clamp(36px, 5vw, 56px) !important; line-height: 1.12 !important; font-weight: 800 !important; letter-spacing: -.04em; }
+    .journey-shell {
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 24px;
+      background: rgba(15,23,42,.55);
+      backdrop-filter: blur(24px);
+    }
+    .journey-row { border-color: rgba(255,255,255,.08); }
+    .journey-label { color: #64748b; }
+    .journey-value { color: #e2e8f0; }
+
+    .metric { overflow: visible; border-radius: 20px; }
+    .metric:hover {
+      transform: translateY(-4px);
+      border-color: rgba(34,211,238,.28);
+      box-shadow: 0 0 34px rgba(34,211,238,.10), var(--shadow);
+    }
+    .metric b {
+      font-size: clamp(32px, 4vw, 42px);
+      color: transparent;
+      background: linear-gradient(135deg, #67e8f9 12%, #818cf8 92%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      letter-spacing: -.045em;
+    }
+    .metric span { color: #94a3b8; line-height: 1.65; }
+    .tablist { border-color: rgba(255,255,255,.08); background: rgba(2,6,23,.24); }
+    .tab { color: #94a3b8; }
+    .tab:hover { color: #e2e8f0; background: rgba(255,255,255,.04); }
+    .tab[aria-selected="true"] {
+      color: #06111b;
+      background: linear-gradient(135deg, #67e8f9, #818cf8);
+      box-shadow: 0 10px 28px rgba(34,211,238,.16);
+    }
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: 18px;
+      bottom: 18px;
+      width: 1px;
+      background: linear-gradient(#22d3ee, rgba(99,102,241,.35));
+    }
+    .timeline .card::before {
+      content: "";
+      position: absolute;
+      left: -27px;
+      top: 29px;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #22d3ee;
+      box-shadow: 0 0 0 5px #0f172a, 0 0 20px rgba(34,211,238,.7);
+    }
+    .card { position: relative; }
+    .card:hover { border-color: rgba(34,211,238,.20); box-shadow: 0 22px 60px rgba(0,0,0,.30); }
+    .card h3 { color: #f8fafc; font-size: 19px; line-height: 1.35; font-weight: 700; }
+    .role { display: inline-flex; align-items: center; gap: 7px; color: #67e8f9; }
+    .meta { color: #64748b; }
+    ul.clean li { color: #94a3b8; }
+    ul.clean li::before { background: #22d3ee; box-shadow: 0 0 8px rgba(34,211,238,.45); }
+    .project-grid .card { min-width: 0; }
+    .project-card .stack { margin-bottom: 4px; }
+    .award-list .badge { color: #c7d2fe; border-color: rgba(129,140,248,.20); background: rgba(99,102,241,.09); }
+    .pig-easter-egg { filter: drop-shadow(0 10px 22px rgba(34,211,238,.12)); }
+
+    .toast {
+      position: fixed;
+      z-index: 100;
+      left: 50%;
+      bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 18px;
+      border: 1px solid rgba(103,232,249,.22);
+      border-radius: 14px;
+      background: rgba(15,23,42,.82);
+      color: #e2e8f0;
+      box-shadow: 0 18px 50px rgba(0,0,0,.38), 0 0 30px rgba(34,211,238,.10);
+      backdrop-filter: blur(22px);
+      transform: translate(-50%, 24px);
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s ease;
+    }
+    .toast.show { transform: translate(-50%, 0); opacity: 1; }
+    .toast svg { width: 18px; height: 18px; color: #67e8f9; }
+    .footer { border-top: 1px solid rgba(255,255,255,.06); }
+
+    @media (max-width: 760px) {
+      .hero { padding-top: 42px; }
+      .hero-grid { gap: 16px; }
+      .hero-main, .profile-card { padding: 24px; }
+      .identity { align-items: center; }
+      .hero-avatar { width: 86px; height: 86px; }
+      h1 { font-size: clamp(42px, 15vw, 60px) !important; }
+      .motto { padding: 16px 18px; }
+      .metrics { grid-template-columns: 1fr; }
+      .timeline { padding-left: 22px; }
+      .timeline::before { left: 4px; }
+      .timeline .card::before { left: -23px; }
+      .tabpanel { padding: 12px; }
+      .card { padding: 18px; }
+      .card-head { gap: 8px; }
+      .journey-shell { padding: 4px 18px; }
+      .section-head h2 { font-size: 25px; }
+      .section-title-icon > span { width: 34px; height: 34px; }
+      .pig-easter-egg { opacity: .72; }
+    }
+    @media (max-width: 420px) {
+      .container { width: calc(100% - 24px); }
+      .identity { align-items: flex-start; }
+      .hero-avatar { width: 72px; height: 72px; border-radius: 16px; }
+      h1 { font-size: 38px !important; }
+      .hero-main, .profile-card { padding: 20px; }
+      .journey-row { grid-template-columns: 76px minmax(0,1fr); }
+      .journey-value { overflow-wrap: anywhere; }
+      .contact-item { align-items: flex-start; }
+      .contact-item span { text-align: right; overflow-wrap: anywhere; }
+      .toast { width: calc(100% - 32px); justify-content: center; }
+    }
+    @media print {
+      body { background: white !important; }
+      body::before, body::after, .toast { display: none !important; }
+    }
+  </style>
+  <style>
+    /* Spatial Mapping 白底叙事主题 */
+    body.light-resume {
+      --bg: #f7f8fa;
+      --surface: rgba(255,255,255,.76);
+      --surface-strong: rgba(255,255,255,.94);
+      --text: #111827;
+      --muted: #64748b;
+      --line: rgba(15,23,42,.09);
+      --primary: #2563eb;
+      --accent: #7c3aed;
+      --shadow: 0 24px 70px rgba(15,23,42,.10);
+      --shadow-soft: 0 12px 36px rgba(15,23,42,.07);
+      color-scheme: light;
+      background:
+        radial-gradient(circle at 9% 12%, rgba(59,130,246,.08), transparent 28rem),
+        radial-gradient(circle at 92% 86%, rgba(124,58,237,.07), transparent 30rem),
+        #f7f8fa;
+      color: var(--text);
+    }
+    body.light-resume::before { background: #60a5fa; opacity: .07; }
+    body.light-resume::after { background: #a78bfa; opacity: .07; }
+    .light-resume .nav {
+      border-bottom-color: rgba(15,23,42,.08);
+      background: rgba(255,255,255,.78);
+      box-shadow: 0 8px 30px rgba(15,23,42,.04);
+    }
+    .light-resume .brand, .light-resume .nav-links a { color: #334155; }
+    .light-resume .nav-links a:hover { color: #111827; background: rgba(37,99,235,.07); }
+    .light-resume .panel,
+    .light-resume .tabs,
+    .light-resume .card,
+    .light-resume .journey-shell {
+      border-color: rgba(15,23,42,.09);
+      background: rgba(255,255,255,.74);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 18px 55px rgba(15,23,42,.07);
+    }
+    .light-resume h1,
+    .light-resume .profile-card h2,
+    .light-resume .section-head h2,
+    .light-resume .journey-title,
+    .light-resume .card h3 { color: #0f172a; text-shadow: none; }
+    .light-resume .subtitle, .light-resume ul.clean li, .light-resume .metric span,
+    .light-resume .section-head p, .light-resume .profile-card .contact-note { color: #64748b; }
+    .light-resume .motto {
+      color: #334155;
+      border-left-color: #2563eb;
+      background: linear-gradient(90deg, rgba(37,99,235,.07), rgba(124,58,237,.025));
+    }
+    .light-resume .contact-item { border-color: rgba(15,23,42,.08); background: rgba(248,250,252,.8); color: #64748b; }
+    .light-resume .contact-label { color: #334155 !important; }
+    .light-resume .badge, .light-resume .mini {
+      border-color: rgba(37,99,235,.15);
+      background: rgba(37,99,235,.06);
+      color: #1d4ed8;
+    }
+    .light-resume .role, .light-resume .journey-kicker { color: #2563eb; }
+    .light-resume .journey-value { color: #1e293b; }
+    .light-resume .journey-row, .light-resume .tablist { border-color: rgba(15,23,42,.08); }
+    .light-resume .tablist { background: rgba(248,250,252,.76); }
+    .light-resume .tab { color: #64748b; }
+    .light-resume .tab:hover { color: #111827; background: rgba(15,23,42,.04); }
+    .light-resume .tab[aria-selected="true"] { color: #fff; background: linear-gradient(135deg,#2563eb,#7c3aed); }
+    .light-resume .timeline::before { background: linear-gradient(#2563eb, rgba(124,58,237,.22)); }
+    .light-resume .timeline .card::before { background:#2563eb; box-shadow:0 0 0 5px #fff,0 0 18px rgba(37,99,235,.35); }
+    .light-resume ul.clean li::before { background:#2563eb; box-shadow:none; }
+    .light-resume .btn, .light-resume .icon-btn {
+      border-color: rgba(15,23,42,.11);
+      background: rgba(255,255,255,.84);
+      color: #334155;
+    }
+    .light-resume .btn.primary { color:#fff; background:linear-gradient(135deg,#2563eb,#7c3aed); }
+    .light-resume .footer { border-color:rgba(15,23,42,.07); color:#64748b; }
+
+    .spatial-cover {
+      position: relative;
+      min-height: min(850px, calc(100vh - var(--nav-h)));
+      padding: 42px 0 72px;
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(15,23,42,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,.035) 1px, transparent 1px),
+        #fafbfc;
+      background-size: 46px 46px;
+      border-bottom: 1px solid rgba(15,23,42,.07);
+    }
+    .spatial-cover::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at center, rgba(255,255,255,.12) 0, #fafbfc 68%);
+      pointer-events:none;
+    }
+    .spatial-shell { position:relative; z-index:1; min-height:690px; }
+    .spatial-kicker {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      color:#64748b;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+    .spatial-kicker::before { content:""; width:28px; height:1px; background:#94a3b8; }
+    .spatial-copy {
+      position:absolute;
+      z-index:5;
+      left:50%;
+      top:50%;
+      width:min(720px, 88%);
+      text-align:center;
+      transform:translate(-50%,-54%);
+      pointer-events:none;
+    }
+    .spatial-copy h1 {
+      margin:0;
+      color:#0f172a;
+      font-size:clamp(58px,10vw,126px) !important;
+      line-height:.92 !important;
+      letter-spacing:-.075em;
+      text-shadow:0 2px 0 rgba(255,255,255,.8),0 20px 60px rgba(15,23,42,.14);
+    }
+    .spatial-copy p { max-width:570px; margin:24px auto 0; color:#475569; font-size:clamp(15px,1.8vw,19px); line-height:1.8; }
+    .spatial-actions { display:flex; justify-content:center; gap:10px; margin-top:30px; pointer-events:auto; }
+    .spatial-actions .btn { background:rgba(255,255,255,.86); box-shadow:0 10px 30px rgba(15,23,42,.10); }
+
+    .spatial-scene {
+      --rx: 0deg;
+      --ry: 0deg;
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:min(660px,65vw);
+      aspect-ratio:1.45;
+      transform:translate(-50%,-49%) perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry));
+      transform-style:preserve-3d;
+      transition:transform .18s ease-out;
+      will-change:transform;
+    }
+    .spatial-blob {
+      position:absolute;
+      inset:4% 8%;
+      border-radius:46% 54% 58% 42% / 38% 46% 54% 62%;
+      background:
+        radial-gradient(circle at 26% 24%, rgba(255,255,255,.95), transparent 22%),
+        radial-gradient(circle at 74% 68%, rgba(15,23,42,.22), transparent 33%),
+        conic-gradient(from 40deg, #dbeafe, #c4b5fd, #fbcfe8, #bfdbfe, #d1fae5, #ddd6fe, #dbeafe);
+      filter:saturate(.92) contrast(1.06);
+      box-shadow:0 45px 90px rgba(51,65,85,.22), inset 18px 16px 40px rgba(255,255,255,.7), inset -25px -18px 46px rgba(79,70,229,.12);
+      animation:spatialMorph 12s ease-in-out infinite alternate, spatialFloat 7s ease-in-out infinite;
+      opacity:.16;
+      filter:blur(28px) saturate(1.1);
+      will-change:transform,border-radius;
+    }
+    .spatial-canvas {
+      position:absolute;
+      z-index:2;
+      inset:-18% -20%;
+      width:140%;
+      height:136%;
+      pointer-events:none;
+      filter:drop-shadow(0 34px 34px rgba(15,23,42,.18));
+      will-change:transform;
+    }
+    .spatial-blob::before,
+    .spatial-blob::after {
+      content:"";
+      position:absolute;
+      border-radius:inherit;
+      pointer-events:none;
+    }
+    .spatial-blob::before {
+      inset:8%;
+      border:1px solid rgba(255,255,255,.64);
+      background:repeating-radial-gradient(ellipse at 55% 48%, transparent 0 16px, rgba(30,41,59,.10) 17px, transparent 18px 30px);
+      mix-blend-mode:overlay;
+      transform:translateZ(40px) rotate(-8deg);
+    }
+    .spatial-blob::after {
+      inset:-8%;
+      border:1px solid rgba(37,99,235,.12);
+      filter:blur(.2px);
+      transform:translateZ(-24px) rotate(8deg);
+    }
+    @keyframes spatialMorph {
+      0% { border-radius:46% 54% 58% 42% / 38% 46% 54% 62%; transform:rotate(-5deg) scale(.96); }
+      50% { border-radius:61% 39% 44% 56% / 52% 62% 38% 48%; }
+      100% { border-radius:42% 58% 36% 64% / 58% 42% 61% 39%; transform:rotate(6deg) scale(1.035); }
+    }
+    @keyframes spatialFloat { 50% { translate:0 -13px; } }
+    .spatial-orbit { position:absolute; inset:-9%; border:1px solid rgba(15,23,42,.10); border-radius:50%; transform:rotate(-10deg) translateZ(-50px); }
+    .spatial-orbit::before { content:""; position:absolute; width:9px; height:9px; border-radius:50%; background:#2563eb; left:16%; top:15%; box-shadow:0 0 0 7px rgba(37,99,235,.08); animation:orbitPulse 2.4s ease-in-out infinite; }
+    @keyframes orbitPulse { 50% { transform:scale(1.55); opacity:.55; } }
+    .spatial-stat {
+      position:absolute;
+      z-index:7;
+      width:190px;
+      padding:18px 20px;
+      border:1px solid rgba(255,255,255,.75);
+      border-radius:18px;
+      background:rgba(255,255,255,.70);
+      box-shadow:0 22px 55px rgba(15,23,42,.10);
+      backdrop-filter:blur(20px);
+      color:#64748b;
+      font-size:12px;
+      line-height:1.5;
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .spatial-stat strong { display:block; margin-bottom:5px; color:#0f172a; font-size:30px; line-height:1; letter-spacing:-.05em; }
+    .spatial-stat:hover { transform:translateY(-5px); box-shadow:0 28px 65px rgba(15,23,42,.14); }
+    .spatial-stat.one { left:1%; top:20%; }
+    .spatial-stat.two { right:1%; top:20%; }
+    .spatial-stat.three { left:50%; bottom:3%; transform:translateX(-50%); }
+    .spatial-stat.three:hover { transform:translateX(-50%) translateY(-5px); }
+    .spatial-globe {
+      position:absolute;
+      right:9%;
+      bottom:10%;
+      width:110px;
+      height:110px;
+      border-radius:50%;
+      opacity:.58;
+      background-image:radial-gradient(#334155 1px, transparent 1.4px);
+      background-size:7px 7px;
+      mask-image:radial-gradient(circle,#000 45%,transparent 72%);
+      animation:globeDrift 8s ease-in-out infinite alternate;
+    }
+    @keyframes globeDrift { to { transform:translate3d(-18px,-12px,0) rotate(12deg); } }
+    .light-resume .hero { padding-top:48px; }
+
+    @media (max-width:920px) {
+      .spatial-cover { min-height:760px; }
+      .spatial-shell { min-height:640px; }
+      .spatial-scene { width:min(590px,88vw); }
+      .spatial-stat { width:158px; padding:14px 16px; }
+      .spatial-stat strong { font-size:26px; }
+    }
+    @media (max-width:620px) {
+      .spatial-cover { min-height:720px; padding-top:28px; }
+      .spatial-shell { min-height:650px; }
+      .spatial-scene { width:105vw; opacity:.88; }
+      .spatial-copy { top:45%; width:92%; }
+      .spatial-copy h1 { font-size:clamp(54px,20vw,82px) !important; }
+      .spatial-copy p { max-width:330px; font-size:14px; }
+      .spatial-actions { flex-wrap:wrap; }
+      .spatial-stat { width:132px; padding:12px; font-size:10px; }
+      .spatial-stat strong { font-size:23px; }
+      .spatial-stat.one { left:0; top:14%; }
+      .spatial-stat.two { right:0; top:14%; }
+      .spatial-stat.three { bottom:5%; }
+      .spatial-globe { right:-12px; bottom:12%; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      .spatial-blob,.spatial-orbit::before,.spatial-globe { animation:none !important; }
+      .spatial-scene { transition:none !important; }
+    }
+    @media print { .spatial-cover { display:none !important; } }
+
+    .outcome-switcher {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .outcome-switch {
+      position: relative;
+      min-height: 210px;
+      padding: 26px;
+      border: 1px solid rgba(100,116,139,.22);
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(240,249,255,.94));
+      color: #13233a;
+      text-decoration: none;
+      overflow: hidden;
+      box-shadow: 0 18px 48px rgba(15,23,42,.08);
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+    .outcome-switch::after {
+      content: "";
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      right: -52px;
+      bottom: -52px;
+      border-radius: 50%;
+      background: rgba(8,145,178,.09);
+      transition: transform .25s ease;
+    }
+    .outcome-switch:hover,
+    .outcome-switch:focus-visible {
+      transform: translateY(-6px);
+      border-color: rgba(8,145,178,.55);
+      box-shadow: 0 24px 64px rgba(8,145,178,.16);
+      outline: none;
+    }
+    .outcome-switch:hover::after { transform: scale(1.2); }
+    .outcome-switch .switch-icon {
+      display: inline-grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      margin-bottom: 30px;
+      border-radius: 14px;
+      color: #fff;
+      background: #0e7490;
+    }
+    .outcome-switch h3 { margin: 0 0 8px; font-size: 24px; }
+    .outcome-switch p { margin: 0; color: #64748b; line-height: 1.8; }
+    .outcome-switch .switch-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 18px;
+      color: #0e7490;
+      font-weight: 800;
+    }
+    @media (max-width: 1100px) {
+      .outcome-switcher { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 820px) {
+      .outcome-switcher { grid-template-columns: 1fr; }
+      .outcome-switch { min-height: 180px; }
+    }
+    @media print { #outcomes { display:none !important; } }
+  </style>
 </head>
-<body>
+<body class="gate-open light-resume">
+  <div class="resume-gate" id="resumeGate" role="dialog" aria-modal="true" aria-label="个人简历入场页">
+    <div class="gate-door gate-door-left" aria-hidden="true"></div>
+    <div class="gate-door gate-door-right" aria-hidden="true"></div>
+    <div class="gate-stage">
+      <button class="gate-card" id="gateCard" type="button" aria-describedby="gateHint">
+        <span class="gate-title">
+          <span class="gate-name">余怡衡</span><span class="gate-suffix">个人简历</span>
+        </span>
+      </button>
+      <button class="gate-enter" id="gateEnter" type="button">点击进入</button>
+      <span id="gateHint" hidden>将鼠标移到姓名上展开个人简历标题，展开后点击进入</span>
+    </div>
+  </div>
   <nav class="nav" aria-label="主导航">
     <div class="container nav-inner">
       <a class="brand" href="#top" aria-label="回到首页">
@@ -515,14 +1340,37 @@
         <a href="#experience">经历</a>
         <a href="#projects">项目</a>
         <a href="#education">教育</a>
+        <a href="#outcomes">成果中心</a>
       </div>
       <div class="nav-actions">
-        <button class="btn" type="button" onclick="window.print()">打印 PDF</button>
+        <button class="btn" type="button" onclick="window.print()"><i data-lucide="printer"></i>打印 PDF</button>
       </div>
     </div>
   </nav>
 
   <main id="top">
+    <section class="spatial-cover" aria-labelledby="spatialTitle">
+      <div class="container spatial-shell" id="spatialShell">
+        <div class="spatial-kicker">Applied Psychology · AI Practice</div>
+        <div class="spatial-scene" id="spatialScene" aria-hidden="true">
+          <div class="spatial-orbit"></div>
+          <canvas class="spatial-canvas" id="spatialCanvas"></canvas>
+          <div class="spatial-blob"></div>
+        </div>
+        <div class="spatial-copy">
+          <h1 id="spatialTitle">余怡衡</h1>
+          <p>为天地立心，为生民立命，为往圣继绝学，为万世开太平</p>
+          <div class="spatial-actions">
+            <a class="btn primary" href="#experience"><i data-lucide="arrow-down-right"></i>浏览经历</a>
+            <a class="btn" href="#projects"><i data-lucide="folder-kanban"></i>查看项目</a>
+          </div>
+        </div>
+        <article class="spatial-stat one"><strong>12年</strong>连续担任班长，长期承担组织协调</article>
+        <article class="spatial-stat two"><strong>220+</strong>材料服务学生，覆盖2个专业、4个班级</article>
+        <article class="spatial-stat three"><strong>10+</strong>主持、演讲与公开发言经历</article>
+        <div class="spatial-globe" aria-hidden="true"></div>
+      </div>
+    </section>
     <section class="hero">
       <button class="pig-easter-egg" id="pigEasterEgg" type="button" aria-label="小猪翻滚彩蛋" title="把鼠标放上来试试">
         <img id="pigImage" src="google-pig-still.png" alt="一只等待翻滚的谷歌小猪">
@@ -537,9 +1385,9 @@
           <blockquote class="motto">为天地立心，为生民立命，为往圣继绝学，为万世开太平</blockquote>
           <div class="badges" id="tags"></div>
           <div class="hero-actions">
-            <a class="btn primary" id="phoneBtn" href="#">联系我</a>
-            <button class="btn" id="copyEmail" type="button">复制邮箱</button>
-            <a class="btn" id="githubBtn" href="#" target="_blank" rel="noopener">GitHub</a>
+            <a class="btn primary" id="phoneBtn" href="#"><i data-lucide="phone"></i>联系我</a>
+            <button class="btn" id="copyEmail" type="button"><i data-lucide="copy"></i><span>复制邮箱</span></button>
+            <a class="btn" id="githubBtn" href="#" target="_blank" rel="noopener"><i data-lucide="github"></i>GitHub</a>
           </div>
         </div>
         <aside class="panel profile-card fade-in" aria-label="联系方式">
@@ -593,6 +1441,43 @@
       </div>
     </section>
 
+    <section id="outcomes">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>成果中心</h2>
+            <p>按需打开独立页面，查看学习成果、完整项目、工作流程和口播作品。</p>
+          </div>
+        </div>
+        <div class="outcome-switcher" aria-label="成果页面入口">
+          <a class="outcome-switch" href="certificates.html">
+            <span class="switch-icon"><i data-lucide="badge-check"></i></span>
+            <h3>学习与证书</h3>
+            <p>置顶学习教案，并集中展示7项人工智能、Prompt工程与编程认证。</p>
+            <span class="switch-cta">查看学习成果 <i data-lucide="arrow-up-right"></i></span>
+          </a>
+          <a class="outcome-switch" href="projects.html">
+            <span class="switch-icon"><i data-lucide="folder-kanban"></i></span>
+            <h3>项目</h3>
+            <p>我做过的网页工具、校园项目和长期整理工作。</p>
+            <span class="switch-cta">打开项目页 <i data-lucide="arrow-up-right"></i></span>
+          </a>
+          <a class="outcome-switch" href="workflows.html">
+            <span class="switch-icon"><i data-lucide="route"></i></span>
+            <h3>工作流程</h3>
+            <p>从需求、取舍到验证，按面试追问的深度拆开讲清楚。</p>
+            <span class="switch-cta">查看项目过程 <i data-lucide="arrow-up-right"></i></span>
+          </a>
+          <a class="outcome-switch" href="speeches.html">
+            <span class="switch-icon"><i data-lucide="mic-2"></i></span>
+            <h3>口播稿</h3>
+            <p>我写过的一些口播稿，可以直接阅读或保存。</p>
+            <span class="switch-cta">打开口播稿页 <i data-lucide="arrow-up-right"></i></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section id="education">
       <div class="container">
         <div class="section-head">
@@ -604,7 +1489,7 @@
         <div class="edu-grid">
           <div class="panel card" id="eduCards"></div>
           <div class="panel card">
-            <h3>获奖与荣誉</h3>
+            <h3>证书与荣誉</h3>
             <div class="award-list" id="awards"></div>
           </div>
         </div>
@@ -612,7 +1497,12 @@
     </section>
   </main>
 
-  <button class="icon-btn to-top" id="toTop" type="button" aria-label="返回顶部">↑</button>
+  <button class="icon-btn to-top" id="toTop" type="button" aria-label="返回顶部"><i data-lucide="arrow-up"></i></button>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <i data-lucide="check-circle-2"></i>
+    <span id="toastText">邮箱已复制到剪贴板</span>
+  </div>
 
   <footer class="footer">
     <div class="container">
@@ -628,7 +1518,7 @@
       emailDomain: "qq.com",
       github: "yuyiheng2007",
       githubUrl: "https://github.com/yuyiheng2007",
-      updatedAt: "2026-09-18",
+      updatedAt: "2026-10-09",
       summary: "应用心理学（智能化方向）本科新生，具备12年班长经历、学生会主席与国旗队经历。擅长组织动员、公开表达、材料汇总与AI辅助办公，已参与学院会务和跨班级文档协作，服务2个专业、4个班级、220余名学生。",
       tags: ["可靠负责", "组织表达能力强", "思维深刻", "AI工具应用", "学生事务协作"],
       educationJourney: [
@@ -643,7 +1533,7 @@
         { value: "220+", label: "材料服务学生，覆盖2个专业、4个班级" },
         { value: "10+", label: "主持/演讲/公开发言经历" },
         { value: "4次", label: "全校级发言与优秀毕业生回校分享" },
-        { value: "市级", label: "演讲比赛二等奖，校级一等奖" }
+        { value: "7项", label: "人工智能、Prompt工程与编程学习认证" }
       ],
       contacts: [
         ["电话", "15670279550"],
@@ -716,6 +1606,19 @@
           name: "数字工具",
           items: [
             {
+              title: "人工智能证书核心知识学习教案｜学习成果整理",
+              time: "2026.10",
+              role: "资料研究 / 学习路线设计 / 知识编排",
+              stack: ["Prompt", "Agent", "RAG", "Python", "智能心理"],
+              link: "certificates.html#study-guide",
+              bullets: [
+                "围绕30个认证方向梳理共通知识，把分散的课程、考试说明和个人笔记整理成15页学习教案。",
+                "内容从Prompt与智能体延伸到RAG、数据评估、Python、语音与视觉应用，并补充隐私、偏差和危机干预边界。",
+                "没有把证书当作终点，而是把备考中真正理解的概念、方法和风险整理成可回看、可复用的学习材料。",
+                "提供PDF在线阅读与Word原稿下载，便于面试时直接核验学习过程和知识结构。"
+              ]
+            },
+            {
               title: "生活管理助手｜个人网页工具项目",
               time: "2026",
               role: "项目规划 / 功能规划 / 页面设计 / AI辅助搭建",
@@ -745,6 +1648,19 @@
         {
           name: "校园事务",
           items: [
+            {
+              title: "校迹｜校园交互地图",
+              time: "2026.09 - 2026.10",
+              role: "需求梳理 / 信息整理 / 原型迭代",
+              stack: ["校园服务", "交互地图", "原型验证", "用户反馈"],
+              link: "demos/campus-map/index.html",
+              bullets: [
+                "从新生找楼、辨认功能区的真实困扰出发，整理校园地点与功能信息，并制作可交互地图原型。",
+                "先完成可操作的最小版本，再根据老师反馈调整信息层级、入口和场景说明。",
+                "保留可直接打开的演示页面，并把需求、数据准备、原型和验证过程单独整理成工作流程。",
+                "目前仍是持续校验中的校园工具，后续重点是补齐地点数据并进行真实用户走查。"
+              ]
+            },
             {
               title: "班级课表与材料整理项目",
               time: "2026",
@@ -795,6 +1711,7 @@
         }
       ],
       awards: [
+        "7项人工智能、Prompt工程与编程学习认证（证书页可核验）",
         "每年获得“优秀班长”相关奖项",
         "优秀校学生会主席",
         "优秀国旗队队员",
@@ -813,9 +1730,24 @@
       return node;
     };
 
+    const icon = name => {
+      const node = document.createElement("i");
+      node.setAttribute("data-lucide", name);
+      node.setAttribute("aria-hidden", "true");
+      return node;
+    };
+
+    const tagIcons = ["shield-check", "users", "brain-circuit", "sparkles", "workflow"];
+    const contactIcons = { "电话": "phone", "邮箱": "mail", "微信": "message-circle", "QQ": "messages-square", "GitHub": "github" };
+
     function renderBadges(target, items) {
       target.innerHTML = "";
-      items.forEach(item => target.appendChild(el("span", "badge", item)));
+      items.forEach((item, index) => {
+        const badge = el("span", "badge");
+        badge.appendChild(icon(tagIcons[index % tagIcons.length]));
+        badge.appendChild(document.createTextNode(item));
+        target.appendChild(badge);
+      });
     }
 
     function renderList(items) {
@@ -842,13 +1774,21 @@
           title.appendChild(a);
         }
         left.appendChild(title);
-        left.appendChild(el("div", "role", item.role));
+        const role = el("div", "role");
+        role.appendChild(icon(project ? "rocket" : "briefcase-business"));
+        role.appendChild(document.createTextNode(item.role));
+        left.appendChild(role);
         head.appendChild(left);
         head.appendChild(el("div", "meta", item.time));
         card.appendChild(head);
         if (item.stack) {
           const stack = el("div", "stack");
-          item.stack.forEach(s => stack.appendChild(el("span", "mini", s)));
+          item.stack.forEach(s => {
+            const skill = el("span", "mini");
+            skill.appendChild(icon("code-2"));
+            skill.appendChild(document.createTextNode(s));
+            stack.appendChild(skill);
+          });
           card.appendChild(stack);
         }
         card.appendChild(renderList(item.bullets));
@@ -904,7 +1844,188 @@
       panels.forEach(panel => root.appendChild(panel));
     }
 
+    function initResumeGate() {
+      const gate = $("#resumeGate");
+      const card = $("#gateCard");
+      const suffix = gate.querySelector(".gate-suffix");
+      const enterButton = $("#gateEnter");
+      let revealStarted = false;
+      let ready = false;
+
+      const finishReveal = () => {
+        if (ready) return;
+        ready = true;
+        card.classList.remove("is-revealing");
+        card.classList.add("is-revealed");
+        gate.classList.add("is-ready");
+        enterButton.setAttribute("aria-hidden", "false");
+      };
+
+      const startReveal = () => {
+        if (revealStarted) return;
+        revealStarted = true;
+        card.classList.add("is-revealing");
+        window.setTimeout(finishReveal, 3200);
+      };
+
+      const enterResume = () => {
+        if (!ready) {
+          startReveal();
+          return;
+        }
+        gate.classList.add("is-opening");
+        document.body.classList.remove("gate-open");
+        window.scrollTo({ top: 0, behavior: "auto" });
+        window.setTimeout(() => {
+          gate.hidden = true;
+          $(".brand").focus({ preventScroll: true });
+        }, 1500);
+      };
+
+      card.addEventListener("pointerenter", startReveal, { once: true });
+      card.addEventListener("focus", startReveal, { once: true });
+      card.addEventListener("click", enterResume);
+      enterButton.addEventListener("click", enterResume);
+      suffix.addEventListener("animationend", event => {
+        if (event.animationName === "gateRevealSuffix") finishReveal();
+      });
+      gate.addEventListener("click", event => {
+        if (ready && (event.target === gate || event.target.classList.contains("gate-stage"))) enterResume();
+      });
+      addEventListener("keydown", event => {
+        if (!gate.hidden && ready && event.key === "Enter") enterResume();
+      });
+      enterButton.setAttribute("aria-hidden", "true");
+    }
+
+    function initSpatialCover() {
+      const shell = $("#spatialShell");
+      const scene = $("#spatialScene");
+      const canvas = $("#spatialCanvas");
+      if (!shell || !scene || !canvas) return;
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let frame = 0;
+      let nextX = 0;
+      let nextY = 0;
+      const paint = () => {
+        scene.style.setProperty("--ry", nextX * 7 + "deg");
+        scene.style.setProperty("--rx", nextY * -5 + "deg");
+        frame = 0;
+      };
+      shell.addEventListener("pointermove", event => {
+        const rect = shell.getBoundingClientRect();
+        nextX = (event.clientX - rect.left) / rect.width - .5;
+        nextY = (event.clientY - rect.top) / rect.height - .5;
+        if (!frame) frame = requestAnimationFrame(paint);
+      }, { passive: true });
+      shell.addEventListener("pointerleave", () => {
+        nextX = 0;
+        nextY = 0;
+        if (!frame) frame = requestAnimationFrame(paint);
+      });
+
+      const ctx = canvas.getContext("2d", { alpha: true });
+      let width = 0;
+      let height = 0;
+      let dpr = 1;
+      let animationFrame = 0;
+      const resizeCanvas = () => {
+        const rect = canvas.getBoundingClientRect();
+        dpr = Math.min(devicePixelRatio || 1, 1.75);
+        width = Math.max(1, rect.width);
+        height = Math.max(1, rect.height);
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      };
+
+      const ribbonPath = (time, layer) => {
+        const path = new Path2D();
+        const points = [];
+        const count = 76;
+        const phase = time * (.64 + layer * .055) + layer * 1.17;
+        for (let i = 0; i <= count; i++) {
+          const u = i / count;
+          const angle = u * Math.PI * 2.15 + phase;
+          const breathe = 1 + .14 * Math.sin(time * .82 + u * 7 + layer);
+          const radiusX = width * (.205 + layer * .011) * breathe;
+          const radiusY = height * (.205 + layer * .016) * breathe;
+          const x = width * .5 + Math.cos(angle) * radiusX + Math.sin(angle * 2.15 - time) * width * .09;
+          const y = height * .5 + Math.sin(angle) * radiusY + Math.cos(angle * 1.7 + time * .7) * height * .13;
+          const depth = Math.sin(angle * 1.35 + time * .9 + layer);
+          const thickness = height * (.055 + .018 * (depth + 1));
+          points.push({ x, y, thickness });
+        }
+        for (let side = 0; side < 2; side++) {
+          const source = side ? [...points].reverse() : points;
+          source.forEach((p, index) => {
+            const originalIndex = side ? points.length - 1 - index : index;
+            const prev = points[Math.max(0, originalIndex - 1)];
+            const next = points[Math.min(points.length - 1, originalIndex + 1)];
+            const dx = next.x - prev.x;
+            const dy = next.y - prev.y;
+            const length = Math.hypot(dx, dy) || 1;
+            const direction = side ? -1 : 1;
+            const px = p.x - dy / length * p.thickness * direction;
+            const py = p.y + dx / length * p.thickness * direction;
+            if (side === 0 && index === 0) path.moveTo(px, py);
+            else path.lineTo(px, py);
+          });
+        }
+        path.closePath();
+        return path;
+      };
+
+      const draw = now => {
+        const time = now * .001;
+        ctx.clearRect(0, 0, width, height);
+        ctx.save();
+        ctx.globalCompositeOperation = "source-over";
+        const palettes = [
+          ["#182435", "#edf1f3", "#7a4352", "#ffc48f", "#263a3d"],
+          ["#15283a", "#b8d6cf", "#f3a77d", "#612d4b", "#e9ece8"],
+          ["#30202c", "#ffbf92", "#6e8782", "#f5e8d9", "#1a2935"]
+        ];
+        for (let layer = 0; layer < 3; layer++) {
+          const path = ribbonPath(time, layer);
+          const gradient = ctx.createLinearGradient(width * .15, height * .2, width * .82, height * .8);
+          const colors = palettes[layer];
+          colors.forEach((color, index) => gradient.addColorStop(index / (colors.length - 1), color));
+          ctx.save();
+          ctx.globalAlpha = .94 - layer * .09;
+          ctx.shadowColor = "rgba(17,24,39,.24)";
+          ctx.shadowBlur = 22 + layer * 7;
+          ctx.shadowOffsetY = 12;
+          ctx.fillStyle = gradient;
+          ctx.fill(path);
+          ctx.shadowColor = "transparent";
+          ctx.lineWidth = 1.3;
+          ctx.strokeStyle = "rgba(255,255,255,.65)";
+          ctx.stroke(path);
+          ctx.globalCompositeOperation = "screen";
+          ctx.lineWidth = 5;
+          ctx.strokeStyle = "rgba(255,238,222,.14)";
+          ctx.stroke(path);
+          ctx.restore();
+        }
+        ctx.restore();
+        if (!reducedMotion) animationFrame = requestAnimationFrame(draw);
+      };
+
+      resizeCanvas();
+      new ResizeObserver(resizeCanvas).observe(canvas);
+      draw(0);
+      if (reducedMotion && animationFrame) cancelAnimationFrame(animationFrame);
+      document.addEventListener("visibilitychange", () => {
+        if (reducedMotion) return;
+        if (document.hidden) cancelAnimationFrame(animationFrame);
+        else animationFrame = requestAnimationFrame(draw);
+      });
+    }
+
     function init() {
+      initResumeGate();
+      initSpatialCover();
       document.title = resume.name + " | 个人简历";
       $("#navName").textContent = resume.name;
       $("#heroName").textContent = resume.name;
@@ -924,7 +2045,10 @@
       const contacts = $("#contacts");
       resume.contacts.forEach(([k, v]) => {
         const row = el("div", "contact-item");
-        row.appendChild(el("strong", "", k));
+        const label = el("strong", "contact-label");
+        label.appendChild(icon(contactIcons[k] || "circle"));
+        label.appendChild(document.createTextNode(k));
+        row.appendChild(label);
         row.appendChild(el("span", "", v));
         contacts.appendChild(row);
       });
@@ -963,8 +2087,11 @@
       $("#copyEmail").addEventListener("click", async () => {
         try {
           await navigator.clipboard.writeText(email);
-          $("#copyEmail").textContent = "已复制邮箱";
-          setTimeout(() => $("#copyEmail").textContent = "复制邮箱", 1600);
+          const toast = $("#toast");
+          $("#toastText").textContent = "邮箱已复制到剪贴板";
+          toast.classList.add("show");
+          clearTimeout(window.__toastTimer);
+          window.__toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
         } catch {
           location.href = "mailto:" + email;
         }
@@ -991,6 +2118,23 @@
       pig.addEventListener("mouseleave", stopPigRoll);
       pig.addEventListener("focus", startPigRoll);
       pig.addEventListener("blur", stopPigRoll);
+
+      const sectionIcons = {
+        "亮点成果": "chart-no-axes-combined",
+        "经历": "briefcase-business",
+        "项目经历": "folder-kanban",
+        "教育与证书": "graduation-cap",
+        "成果中心": "layout-grid"
+      };
+      document.querySelectorAll(".section-head h2").forEach(heading => {
+        const name = heading.textContent.trim();
+        heading.classList.add("section-title-icon");
+        const wrap = document.createElement("span");
+        wrap.appendChild(icon(sectionIcons[name] || "sparkles"));
+        heading.prepend(wrap);
+      });
+
+      if (window.lucide) lucide.createIcons();
     }
 
     init();
