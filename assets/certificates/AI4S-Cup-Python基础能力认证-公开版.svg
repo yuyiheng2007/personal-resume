@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 848" role="img" aria-labelledby="title desc">
+  <title id="title">AI4S Cup Python 基础能力认证</title>
+  <desc id="desc">余怡衡于2026年10月取得的Python基础能力认证公开展示卡，不含证书编号。</desc>
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9b6a20"/>
+      <stop offset="0.5" stop-color="#e4c06b"/>
+      <stop offset="1" stop-color="#a8782d"/>
+    </linearGradient>
+    <pattern id="lines" width="90" height="90" patternUnits="userSpaceOnUse" patternTransform="rotate(8)">
+      <path d="M0 10C24 2 56 2 90 10M0 46C24 38 56 38 90 46M0 82C24 74 56 74 90 82" fill="none" stroke="#edf0f4" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="848" fill="#fff"/>
+  <rect width="1200" height="848" fill="url(#lines)"/>
+  <rect x="34" y="34" width="1132" height="780" rx="6" fill="none" stroke="url(#gold)" stroke-width="3"/>
+  <path d="M34 260Q600 14 1166 260" fill="none" stroke="url(#gold)" stroke-width="18"/>
+  <circle cx="600" cy="132" r="70" fill="url(#gold)"/>
+  <circle cx="600" cy="132" r="52" fill="#ecd087" stroke="#8c641f" stroke-width="3"/>
+  <text x="600" y="123" text-anchor="middle" font-family="serif" font-size="26" font-weight="700" fill="#815b1b">人才</text>
+  <text x="600" y="155" text-anchor="middle" font-family="serif" font-size="26" font-weight="700" fill="#815b1b">认证</text>
+  <text x="600" y="360" text-anchor="middle" font-family="Georgia, 'Microsoft YaHei', serif" font-size="62" font-weight="700" fill="#111827">AI4S Cup · Python 基础能力认证</text>
+  <text x="600" y="455" text-anchor="middle" font-family="'Microsoft YaHei', sans-serif" font-size="48" font-weight="700" fill="#b18a43">余怡衡</text>
+  <line x1="260" y1="488" x2="940" y2="488" stroke="#8b96a6" stroke-width="2"/>
+  <text x="600" y="555" text-anchor="middle" font-family="'Microsoft YaHei', sans-serif" font-size="25" fill="#334155">Python 编程核心技能与科学领域问题解决能力认证</text>
+  <text x="120" y="720" font-family="'Microsoft YaHei', sans-serif" font-size="22" fill="#193a61">北京科学智能研究院</text>
+  <text x="120" y="754" font-family="'Microsoft YaHei', sans-serif" font-size="22" fill="#193a61">北京深势科技有限公司</text>
+  <text x="1080" y="720" text-anchor="end" font-family="'Microsoft YaHei', sans-serif" font-size="24" fill="#193a61">2026-10-10</text>
+  <text x="1080" y="754" text-anchor="end" font-family="'Microsoft YaHei', sans-serif" font-size="18" fill="#64748b">认证日期</text>
+</svg>
