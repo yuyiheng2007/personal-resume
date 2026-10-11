@@ -1,0 +1,159 @@
+/* Interactive archive folders shared by the resume home pages. */
+#experience {
+  position: relative;
+  overflow: hidden;
+  background: #070707;
+  border-top: 1px solid rgba(255,255,255,.10);
+}
+#experience .section-head { margin-bottom: 76px; }
+.experience-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+.experience-summary-card {
+  --folder-accent: #ff2a2a;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: 430px;
+  padding: 42px 30px 30px;
+  flex-direction: column;
+  color: #e0e0e0;
+  background: #0a0a0a;
+  border: 1px solid #333;
+  border-radius: 3px;
+  text-decoration: none;
+  overflow: visible;
+  transition: transform 220ms cubic-bezier(.22,1,.36,1), border-color 220ms ease, background 220ms ease;
+}
+.experience-summary-card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -28px;
+  left: -1px;
+  width: 42%;
+  height: 30px;
+  background: #0a0a0a;
+  border: 1px solid #333;
+  border-bottom: 0;
+  clip-path: polygon(0 0, 78% 0, 100% 100%, 0 100%);
+  transition: border-color 220ms ease, background 220ms ease;
+}
+.experience-summary-card::after {
+  content: "OPEN FILE  ↗";
+  position: absolute;
+  top: -20px;
+  left: 16px;
+  color: #777;
+  font: 600 10px/1.2 "IBM Plex Mono", Consolas, monospace;
+  letter-spacing: .12em;
+}
+.experience-summary-card:hover,
+.experience-summary-card:focus-visible {
+  z-index: 2;
+  outline: none;
+  transform: translateY(-8px);
+  background: #101010;
+  border-color: #555;
+}
+.experience-summary-card:hover::before,
+.experience-summary-card:focus-visible::before { background: #101010; border-color: #555; }
+.experience-summary-card:hover::after,
+.experience-summary-card:focus-visible::after { color: var(--folder-accent); }
+.experience-summary-icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 24px;
+  color: #050505;
+  background: var(--folder-accent);
+  border-radius: 50%;
+}
+.experience-summary-icon svg { width: 22px; height: 22px; }
+.experience-summary-index {
+  color: #777;
+  font: 600 11px/1.4 "IBM Plex Mono", Consolas, monospace;
+  letter-spacing: .12em;
+}
+.experience-summary-card h3 {
+  margin: 12px 0 22px;
+  color: #fff;
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.05;
+  letter-spacing: -.035em;
+}
+.experience-summary-label {
+  margin-bottom: 8px;
+  color: #777;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .10em;
+}
+.experience-summary-list {
+  position: relative;
+  z-index: -1;
+  margin: 0 0 26px;
+  padding: 12px 18px 14px;
+  color: #aaa;
+  background: #111;
+  border: 1px solid #292929;
+  border-top: 2px solid #444;
+  list-style: none;
+  counter-reset: folder-file;
+  transform: translateY(18px);
+  transition: transform 260ms cubic-bezier(.22,1,.36,1), border-color 220ms ease;
+}
+.experience-summary-card:hover .experience-summary-list,
+.experience-summary-card:focus-visible .experience-summary-list {
+  z-index: 1;
+  transform: translateY(0);
+  border-top-color: var(--folder-accent);
+}
+.experience-summary-list li {
+  counter-increment: folder-file;
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 8px;
+  padding: 9px 0;
+  border-bottom: 1px solid #242424;
+  font-size: 14px;
+  line-height: 1.45;
+}
+.experience-summary-list li:last-child { border-bottom: 0; }
+.experience-summary-list li::before {
+  content: counter(folder-file, decimal-leading-zero);
+  position: static;
+  display: block;
+  color: var(--folder-accent);
+  font: 600 10px/1.9 "IBM Plex Mono", Consolas, monospace;
+}
+.experience-summary-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+}
+.experience-summary-link svg { width: 18px; height: 18px; transition: transform 220ms ease; }
+.experience-summary-card:hover .experience-summary-link svg,
+.experience-summary-card:focus-visible .experience-summary-link svg { transform: translate(3px, -3px); }
+
+@media (max-width: 900px) {
+  #experience .section-head { margin-bottom: 64px; }
+  .experience-summary-grid { grid-template-columns: 1fr; gap: 62px; }
+  .experience-summary-card { min-height: 390px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .experience-summary-card,
+  .experience-summary-list,
+  .experience-summary-link svg { transition: none !important; }
+  .experience-summary-card:hover,
+  .experience-summary-card:focus-visible,
+  .experience-summary-list { transform: none !important; }
+}

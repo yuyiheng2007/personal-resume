@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>余怡衡 | 个人简历</title>
+  <title>余怡衡 | 个人简历 · 设计预览</title>
   <meta name="theme-color" content="#030712">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -132,31 +132,6 @@
     }
 
     .hero { position: relative; padding: 64px 0 30px; }
-
-    .pig-easter-egg {
-      position: absolute;
-      top: 88px;
-      right: 24px;
-      z-index: 5;
-      width: 76px;
-      height: 76px;
-      padding: 0;
-      border: 0;
-      border-radius: 10px;
-      background: transparent;
-      cursor: pointer;
-      transition: transform 180ms ease, filter 180ms ease;
-    }
-
-    .pig-easter-egg:hover,
-    .pig-easter-egg:focus-visible {
-      transform: translateY(-3px) scale(1.04);
-      filter: drop-shadow(0 8px 12px rgba(23, 32, 51, .12));
-      outline: none;
-    }
-
-    .pig-easter-egg:focus-visible { box-shadow: 0 0 0 3px rgba(31, 79, 168, .22); }
-    .pig-easter-egg img { display: block; width: 100%; height: 100%; object-fit: contain; }
 
     .hero-grid {
       display: grid;
@@ -459,13 +434,11 @@
       .metrics { grid-template-columns: repeat(2, 1fr); }
       .project-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
-      .pig-easter-egg { top: 80px; right: 14px; width: 60px; height: 60px; }
     }
 
     @media (max-width: 560px) {
       .container { width: min(100% - 24px, var(--max)); }
       .hero { padding-top: 34px; }
-      .pig-easter-egg { top: 18px; width: 52px; height: 52px; }
       .hero-main, .profile-card { padding: 24px; }
       .metrics { grid-template-columns: 1fr; }
       .identity { align-items: flex-start; gap: 16px; }
@@ -494,7 +467,7 @@
         --shadow-soft: none;
       }
       body { background: #fff; font-size: 12px; }
-      body::before, .nav, .to-top, .pig-easter-egg, .hero-actions, .tablist, .footer { display: none !important; }
+      body::before, .nav, .to-top, .hero-actions, .tablist, .footer { display: none !important; }
       .container { width: 100%; padding: 0 10mm; }
       .hero { padding: 0 0 8mm; }
       .hero-grid, .edu-grid, .project-grid, .metrics { grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -924,7 +897,6 @@
     .project-grid .card { min-width: 0; }
     .project-card .stack { margin-bottom: 4px; }
     .award-list .badge { color: #c7d2fe; border-color: rgba(129,140,248,.20); background: rgba(99,102,241,.09); }
-    .pig-easter-egg { filter: drop-shadow(0 10px 22px rgba(34,211,238,.12)); }
 
     .toast {
       position: fixed;
@@ -968,7 +940,6 @@
       .journey-shell { padding: 4px 18px; }
       .section-head h2 { font-size: 25px; }
       .section-title-icon > span { width: 34px; height: 34px; }
-      .pig-easter-egg { opacity: .72; }
     }
     @media (max-width: 420px) {
       .container { width: calc(100% - 24px); }
@@ -1249,7 +1220,7 @@
 
     .outcome-switcher {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 18px;
     }
     .outcome-switch {
@@ -1313,6 +1284,12 @@
     }
     @media print { #outcomes { display:none !important; } }
   </style>
+  <link rel="stylesheet" href="portfolio-preserve.css?v=portfolio-20261011-2">
+  <link rel="stylesheet" href="folder-experience.css?v=folder-20261011-2">
+  <link rel="stylesheet" href="outcomes-inline.css?v=outcomes-20261011-1">
+  <link rel="stylesheet" href="side-rail-nav.css?v=side-rail-20261011-8">
+  <link rel="stylesheet" href="glitch-title.css?v=glitch-title-20261011-1">
+  <link rel="stylesheet" href="gravity-hero.css?v=gravity-hero-20261011-1">
 </head>
 <body class="gate-open light-resume">
   <div class="resume-gate" id="resumeGate" role="dialog" aria-modal="true" aria-label="个人简历入场页">
@@ -1330,17 +1307,11 @@
   </div>
   <nav class="nav" aria-label="主导航">
     <div class="container nav-inner">
-      <a class="brand" href="#top" aria-label="回到首页">
-        <img class="mark" src="我的头像.jpg" alt="余怡衡头像">
-        <span id="navName">余怡衡</span>
-      </a>
-      <div class="nav-links">
-        <a href="#highlights">亮点</a>
+      <div class="nav-links" style="margin-left:auto">
         <a href="#journey">求学之路</a>
-        <a href="#experience">经历</a>
-        <a href="#projects">项目</a>
-        <a href="#education">教育</a>
-        <a href="#outcomes">成果中心</a>
+        <a href="#learning-inline">学习与证书</a>
+        <a href="#projects-inline">项目</a>
+        <a href="#workflows-inline">工作流程</a>
       </div>
       <div class="nav-actions">
         <button class="btn" type="button" onclick="window.print()"><i data-lucide="printer"></i>打印 PDF</button>
@@ -1355,14 +1326,13 @@
         <div class="spatial-scene" id="spatialScene" aria-hidden="true">
           <div class="spatial-orbit"></div>
           <canvas class="spatial-canvas" id="spatialCanvas"></canvas>
+          <iframe class="gravity-journey-frame" src="gravity-journey-original.html" title="引力之旅实时公式黑洞场景" loading="eager" referrerpolicy="no-referrer"></iframe>
           <div class="spatial-blob"></div>
         </div>
         <div class="spatial-copy">
-          <h1 id="spatialTitle">余怡衡</h1>
+          <h1 class="glitch-title" id="spatialTitle" data-text="余怡衡">余怡衡</h1>
           <p>为天地立心，为生民立命，为往圣继绝学，为万世开太平</p>
           <div class="spatial-actions">
-            <a class="btn primary" href="#experience"><i data-lucide="arrow-down-right"></i>浏览经历</a>
-            <a class="btn" href="#projects"><i data-lucide="folder-kanban"></i>查看项目</a>
           </div>
         </div>
         <article class="spatial-stat one"><strong>12年</strong>连续担任班长，长期承担组织协调</article>
@@ -1372,9 +1342,6 @@
       </div>
     </section>
     <section class="hero">
-      <button class="pig-easter-egg" id="pigEasterEgg" type="button" aria-label="小猪翻滚彩蛋" title="把鼠标放上来试试">
-        <img id="pigImage" src="google-pig-still.png" alt="一只等待翻滚的谷歌小猪">
-      </button>
       <div class="container hero-grid">
         <div class="panel hero-main fade-in">
           <div class="identity">
@@ -1406,95 +1373,12 @@
       </div>
     </section>
 
-    <section id="highlights">
+    <section id="outcomes" aria-label="学习成果、项目与工作流程">
       <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>亮点成果</h2>
-          </div>
-        </div>
-        <div class="metrics" id="metrics"></div>
+        <div id="outcomesInline" class="outcomes-inline"></div>
       </div>
     </section>
 
-    <section id="experience">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>经历</h2>
-            <p>按场景切换查看校园、组织与长期学生干部经历。</p>
-          </div>
-        </div>
-        <div class="tabs" id="experienceTabs"></div>
-      </div>
-    </section>
-
-    <section id="projects">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>科创能力与代表实践</h2>
-            <p>这里放三项和科创部最相关的实践。</p>
-          </div>
-        </div>
-        <div class="tabs" id="projectTabs"></div>
-      </div>
-    </section>
-
-    <section id="outcomes">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>成果中心</h2>
-            <p>证书、项目过程和口播稿都整理在下面的独立页面里。</p>
-          </div>
-        </div>
-        <div class="outcome-switcher" aria-label="成果页面入口">
-          <a class="outcome-switch" href="certificates.html">
-            <span class="switch-icon"><i data-lucide="badge-check"></i></span>
-            <h3>学习与证书</h3>
-            <p>一份学习教案和8项人工智能、Prompt工程与编程认证。</p>
-            <span class="switch-cta">查看学习成果 <i data-lucide="arrow-up-right"></i></span>
-          </a>
-          <a class="outcome-switch" href="projects.html">
-            <span class="switch-icon"><i data-lucide="folder-kanban"></i></span>
-            <h3>项目</h3>
-            <p>我做过的网页工具、校园项目和长期整理工作。</p>
-            <span class="switch-cta">打开项目页 <i data-lucide="arrow-up-right"></i></span>
-          </a>
-          <a class="outcome-switch" href="workflows.html">
-            <span class="switch-icon"><i data-lucide="route"></i></span>
-            <h3>工作流程</h3>
-            <p>项目怎么开始、我做了哪些事、后来改了什么。</p>
-            <span class="switch-cta">查看项目过程 <i data-lucide="arrow-up-right"></i></span>
-          </a>
-          <a class="outcome-switch" href="speeches.html">
-            <span class="switch-icon"><i data-lucide="mic-2"></i></span>
-            <h3>口播稿</h3>
-            <p>我写过的一些口播稿，可以直接阅读或保存。</p>
-            <span class="switch-cta">打开口播稿页 <i data-lucide="arrow-up-right"></i></span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section id="education">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>教育与证书</h2>
-            <p>教育背景、奖项荣誉与公开表达成果。</p>
-          </div>
-        </div>
-        <div class="edu-grid">
-          <div class="panel card" id="eduCards"></div>
-          <div class="panel card">
-            <h3>证书与荣誉</h3>
-            <div class="award-list" id="awards"></div>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 
   <button class="icon-btn to-top" id="toTop" type="button" aria-label="返回顶部"><i data-lucide="arrow-up"></i></button>
@@ -1510,6 +1394,7 @@
     </div>
   </footer>
 
+  <script src="gravity-hero-webgl.js?v=gravity-webgl-20261011-4"></script>
   <script>
     const resume = {
       name: "余怡衡",
@@ -1518,8 +1403,8 @@
       emailDomain: "qq.com",
       github: "yuyiheng2007",
       githubUrl: "https://github.com/yuyiheng2007",
-      updatedAt: "2026-10-10",
-      summary: "应用心理学（智能化方向）本科新生，有长期组织协调和公开表达经验。入学后参与学院会务和跨班级材料整理，服务2个专业、4个班级、220余名学生。我一直在学习AI工具和网页制作，希望加入科创部，参与竞赛选题、申报、原型和路演，把想法一步步做出来。",
+      updatedAt: "2026-10-11",
+      summary: "我愿意向未知处走，也愿意为每一次不懂俯下身来学习；我珍惜独自钻研的沉静，也渴望结识志同道合、各有所长的同行者。碰到问题，我习惯先把情况理清，再一步一步找到解决办法；与人共事，我愿意听、善于说，也能把分散的想法拧成一股绳。认准的事情就利落去做，能今天推进的绝不拖到明天。身处人工智能加速奔涌的时代，我希望始终保持好奇、判断与行动，抓住真正有价值的新机会，在技术与人文社科的交汇处增长本领，也让自己有能力站上潮头、迎浪而行。",
       tags: ["竞赛意愿", "创新实践", "快速学习", "项目推进", "公开表达"],
       educationJourney: [
         ["院校", "河南财政金融学院"],
@@ -1557,18 +1442,6 @@
                 "后续负责教育科学学院相关文档汇总工作，承担更大范围的信息整理、材料归档与事务协同任务。",
                 "通过规范化表格与信息流程，减少重复沟通成本，提升班级和学院事务处理效率。"
               ]
-            },
-            {
-              title: "教育科学学院｜学院会务协助人员",
-              time: "2026.09",
-              role: "现场执行 / 会务协作 / 素材留存",
-              bullets: [
-                "作为辅导员三名助手之一，参与教育科学学院开学典礼暨新生相关会议现场协助，服务应用心理学、学前教育等专业学生。",
-                "提前到场完成会场卫生整理、座位组织、现场秩序维护等工作，保障会议顺利开展。",
-                "负责会议现场照片拍摄与素材留存，为学院后续宣传、记录和材料整理提供基础素材。",
-                "会后留下参与会场清理和收尾，没有等老师另行安排。",
-                "事后主动复盘拍摄环节不足，获得辅导员“认真、细心、负责、眼里有活”的正向评价，并获得后续更多学院事务安排。"
-              ]
             }
           ]
         },
@@ -1599,6 +1472,39 @@
               ]
             }
           ]
+        },
+        {
+          name: "资料与工作流",
+          items: [
+            {
+              title: "个人知识库｜资料与成果归档体系",
+              time: "2026.08 - 至今",
+              role: "需求设计 / 分类整理 / AI协作搭建 / 持续维护",
+              bullets: [
+                "将分散的个人资料迁移到 Obsidian，建立原始资料、结构化笔记、输出成果和复盘记录四层工作流。",
+                "围绕应用心理学、本科成长和个人项目整理索引，让学校材料、项目记录与学习成果能够持续检索和更新。",
+                "与 AI 协作建立知识库同步和维护规则；我负责确定信息范围、分类方式、保留标准与最终核对。"
+              ]
+            },
+            {
+              title: "应用心理学（智能化方向）｜学生实用指南",
+              time: "2026.09",
+              role: "培养方案拆解 / 信息编排 / AI协作制作 / 逐页质检",
+              bullets: [
+                "把专业培养方案中的课程结构、能力要求与发展方向整理为面向学生阅读的实用指南。",
+                "参与确定内容结构和表达方式，并对最终 PDF 逐页检查，修正版式、文字和信息呈现问题。"
+              ]
+            },
+            {
+              title: "班级课表｜双班级整理与打印版",
+              time: "2026.08",
+              role: "信息核对 / 表格排版 / PDF交付",
+              bullets: [
+                "整理两个班级的课程信息，完成适合查看和打印的课表 PDF。",
+                "重点核对课程、时间和班级信息，并调整版式，避免长数字或关键信息显示不完整。"
+              ]
+            }
+          ]
         }
       ],
       projectTabs: [
@@ -1622,7 +1528,7 @@
               time: "2026.10",
               role: "资料研究 / 学习路线设计 / 知识编排",
               stack: ["Prompt", "Agent", "RAG", "Python", "智能心理"],
-              link: "certificates.html#study-guide",
+              link: "#learning-inline",
               bullets: [
                 "围绕30个认证方向梳理共通知识，把分散的课程、考试说明和个人笔记整理成15页学习教案。",
                 "从Prompt、Agent、RAG和Python延伸到智能心理中的隐私、偏差、危机响应与人工接管。",
@@ -1639,6 +1545,30 @@
                 "把课表、待办、健身、财务和素材管理等需求拆成清晰模块，确定高频入口与信息层级。",
                 "使用浏览器本地存储保存数据，并完成可以直接打开的线上版本。",
                 "开发过程使用AI辅助，我主要负责需求判断、功能取舍、页面整合、测试和发布维护。"
+              ]
+            },
+            {
+              title: "Gravity Journey 引力之旅",
+              time: "2026.10",
+              role: "需求设计 / AI辅助实现 / 交互验收",
+              stack: ["Three.js", "TypeScript", "开普勒轨道", "Canvas 纹理"],
+              link: "",
+              bullets: [
+                "根据完整需求说明，搭建包含24步科普导览、太阳系场景与自由探索模式的交互原型。",
+                "使用开普勒方程估算行星位置，通过Canvas运行时生成太阳、地球、行星和土星环纹理。",
+                "由AI辅助编写原型代码，我负责提出需求、检查交互和浏览器验收；目前为本地版本，尚未发布为公开网站。"
+              ]
+            },
+            {
+              title: "公式引力场｜黑洞交互视觉",
+              time: "2026.10",
+              role: "开源项目视觉适配 / 独立页面整理 / 浏览器验收",
+              stack: ["Three.js", "WebGL", "GLSL", "交互视觉改编"],
+              link: "gravity-journey-original.html",
+              bullets: [
+                "基于作者公开部署的完整交互场景整理出独立体验页，并保留原作者署名。",
+                "围绕金色公式引力盘与黑洞主视觉调整呈现；独立体验页保留原有滚动叙事和拖动等交互。",
+                "借助 AI 协助进行页面适配与调试，由我负责需求判断和浏览器验收；后续公开发布前需核实并遵循原仓库许可证。"
               ]
             }
           ]
@@ -1697,6 +1627,7 @@
     const contactIcons = { "电话": "phone", "邮箱": "mail", "微信": "message-circle", "QQ": "messages-square", "GitHub": "github" };
 
     function renderBadges(target, items) {
+      if (!target) return;
       target.innerHTML = "";
       items.forEach((item, index) => {
         const badge = el("span", "badge");
@@ -1755,6 +1686,7 @@
 
     function renderTabs(rootId, tabs, project = false) {
       const root = $("#" + rootId);
+      if (!root) return;
       const tablist = el("div", "tablist");
       tablist.setAttribute("role", "tablist");
       const panels = [];
@@ -1802,6 +1734,24 @@
 
     function initResumeGate() {
       const gate = $("#resumeGate");
+      if (!gate) return;
+      const gateSessionKey = "yyh-resume-gate-seen";
+      let gateSeen = false;
+      try {
+        const referrer = document.referrer ? new URL(document.referrer) : null;
+        const currentFile = location.pathname.split("/").pop();
+        const referrerFile = referrer?.pathname.split("/").pop();
+        const returningFromInnerPage = referrer?.origin === location.origin && referrerFile && referrerFile !== currentFile;
+        gateSeen = sessionStorage.getItem(gateSessionKey) === "1" || returningFromInnerPage;
+        if (returningFromInnerPage) sessionStorage.setItem(gateSessionKey, "1");
+      } catch (error) {
+        gateSeen = false;
+      }
+      if (gateSeen) {
+        gate.hidden = true;
+        document.body.classList.remove("gate-open");
+        return;
+      }
       const card = $("#gateCard");
       const suffix = gate.querySelector(".gate-suffix");
       const enterButton = $("#gateEnter");
@@ -1829,12 +1779,13 @@
           startReveal();
           return;
         }
+        try { sessionStorage.setItem(gateSessionKey, "1"); } catch (error) {}
         gate.classList.add("is-opening");
         document.body.classList.remove("gate-open");
         window.scrollTo({ top: 0, behavior: "auto" });
         window.setTimeout(() => {
           gate.hidden = true;
-          $(".brand").focus({ preventScroll: true });
+          $(".nav-links a")?.focus({ preventScroll: true });
         }, 1500);
       };
 
@@ -1855,6 +1806,10 @@
     }
 
     function initSpatialCover() {
+      if (window.initGravityHero) {
+        window.initGravityHero();
+        return;
+      }
       const shell = $("#spatialShell");
       const scene = $("#spatialScene");
       const canvas = $("#spatialCanvas");
@@ -1983,7 +1938,8 @@
       initResumeGate();
       initSpatialCover();
       document.title = resume.name + " | 个人简历";
-      $("#navName").textContent = resume.name;
+      const navName = $("#navName");
+      if (navName) navName.textContent = resume.name;
       $("#heroName").textContent = resume.name;
       $("#summary").textContent = resume.summary;
       $("#phoneBtn").href = "tel:" + resume.phone;
@@ -2010,31 +1966,35 @@
       });
 
       const metrics = $("#metrics");
-      resume.metrics.forEach(m => {
-        const card = el("article", "panel metric");
-        card.appendChild(el("b", "", m.value));
-        card.appendChild(el("span", "", m.label));
-        metrics.appendChild(card);
-      });
+      if (metrics) {
+        resume.metrics.forEach(m => {
+          const card = el("article", "panel metric");
+          card.appendChild(el("b", "", m.value));
+          card.appendChild(el("span", "", m.label));
+          metrics.appendChild(card);
+        });
+      }
 
       renderTabs("experienceTabs", resume.experienceTabs, false);
       renderTabs("projectTabs", resume.projectTabs, true);
 
       const edu = $("#eduCards");
-      edu.appendChild(el("h3", "", "教育背景"));
-      resume.education.forEach(item => {
-        const block = el("div", "", "");
-        block.style.marginTop = "16px";
-        const head = el("div", "card-head");
-        const left = el("div");
-        left.appendChild(el("h3", "", item.school));
-        left.appendChild(el("div", "role", item.major));
-        head.appendChild(left);
-        head.appendChild(el("div", "meta", item.time));
-        block.appendChild(head);
-        block.appendChild(renderList(item.bullets));
-        edu.appendChild(block);
-      });
+      if (edu) {
+        edu.appendChild(el("h3", "", "教育背景"));
+        resume.education.forEach(item => {
+          const block = el("div", "", "");
+          block.style.marginTop = "16px";
+          const head = el("div", "card-head");
+          const left = el("div");
+          left.appendChild(el("h3", "", item.school));
+          left.appendChild(el("div", "role", item.major));
+          head.appendChild(left);
+          head.appendChild(el("div", "meta", item.time));
+          block.appendChild(head);
+          block.appendChild(renderList(item.bullets));
+          edu.appendChild(block);
+        });
+      }
 
       renderBadges($("#awards"), resume.awards);
       $("#footerText").textContent = "© " + new Date().getFullYear() + " " + resume.name + " · 更新时间 " + resume.updatedAt;
@@ -2059,22 +2019,6 @@
       }, { passive: true });
       toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-      const pig = $("#pigEasterEgg");
-      const pigImage = $("#pigImage");
-      const startPigRoll = () => {
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-        pigImage.src = "google-pig-roll.webp?play=" + Date.now();
-        pigImage.alt = "正在翻滚的谷歌小猪";
-      };
-      const stopPigRoll = () => {
-        pigImage.src = "google-pig-still.png";
-        pigImage.alt = "一只等待翻滚的谷歌小猪";
-      };
-      pig.addEventListener("mouseenter", startPigRoll);
-      pig.addEventListener("mouseleave", stopPigRoll);
-      pig.addEventListener("focus", startPigRoll);
-      pig.addEventListener("blur", stopPigRoll);
-
       const sectionIcons = {
         "亮点成果": "chart-no-axes-combined",
         "经历": "briefcase-business",
@@ -2095,5 +2039,7 @@
 
     init();
   </script>
+  <script src="outcomes-inline.js?v=outcomes-20261011-3"></script>
+  <script src="side-rail-nav.js?v=side-rail-20261011-4"></script>
 </body>
 </html>

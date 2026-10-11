@@ -1,0 +1,91 @@
+.spatial-scene.gravity-hero-scene .spatial-blob {
+  display: none;
+}
+
+.spatial-cover:has(.gravity-source-scene) { overflow: hidden; }
+.spatial-scene.gravity-source-scene {
+  width: 100vw;
+  height: 100svh;
+  aspect-ratio: auto;
+  opacity: 1 !important;
+  filter: none !important;
+  transform: translate(-50%, -50%) !important;
+  transition: none;
+  overflow: visible;
+}
+.spatial-scene.gravity-source-scene .spatial-orbit,
+.spatial-scene.gravity-source-scene > .spatial-canvas,
+.spatial-scene.gravity-source-scene > .spatial-blob { display: none; }
+.gravity-journey-frame {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  width: 138vw;
+  height: 138svh;
+  border: 0;
+  background: #020304;
+  transform: translate(-50%, -50%);
+}
+
+.spatial-scene.gravity-hero-scene .spatial-canvas {
+  inset: -24% -28%;
+  width: 156%;
+  height: 148%;
+  filter: drop-shadow(0 0 46px rgba(198, 158, 76, .18));
+  pointer-events: auto;
+  cursor: grab;
+}
+
+.spatial-scene.gravity-hero-scene .spatial-canvas:active { cursor: grabbing; }
+
+.gravity-formula-layer {
+  position: absolute;
+  z-index: 3;
+  inset: -24% -28%;
+  width: 156%;
+  height: 148%;
+  pointer-events: none;
+  filter: drop-shadow(0 0 10px rgba(236, 209, 154, .26));
+}
+
+.spatial-scene.gravity-hero-scene .spatial-orbit {
+  inset: 4% -42%;
+  border-color: rgba(208, 164, 88, .10);
+  box-shadow: inset 0 0 100px rgba(194, 137, 56, .025);
+  transform: rotate(-16deg) translateZ(-50px);
+}
+
+.spatial-scene.gravity-hero-scene .spatial-orbit::before {
+  width: 6px;
+  height: 6px;
+  background: #b99852;
+  box-shadow: 0 0 0 6px rgba(185, 152, 82, .06), 0 0 22px rgba(185, 152, 82, .34);
+}
+
+@media (max-width: 620px) {
+  .spatial-scene.gravity-source-scene { width: 100vw; height: 100svh; }
+  .gravity-journey-frame { width: 142vw; height: 138svh; }
+  .spatial-scene.gravity-hero-scene .spatial-canvas {
+    inset: -18% -42%;
+    width: 184%;
+    height: 136%;
+  }
+  .gravity-formula-layer { inset: -18% -42%; width: 184%; height: 136%; }
+  .spatial-shell .spatial-stat {
+    position: absolute !important;
+    display: block;
+    width: 118px;
+    margin: 0;
+    padding: 10px 11px;
+    backdrop-filter: blur(8px);
+  }
+  .spatial-shell .spatial-stat.one { left: 0 !important; top: 13% !important; }
+  .spatial-shell .spatial-stat.two { right: 0 !important; left: auto !important; top: 13% !important; }
+  .spatial-shell .spatial-stat.three {
+    left: 50% !important;
+    top: auto !important;
+    bottom: 1% !important;
+    transform: translateX(-50%);
+  }
+}
