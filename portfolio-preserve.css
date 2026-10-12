@@ -119,8 +119,8 @@ body.light-resume::before {
   border: 1px solid rgba(255,255,255,.16);
   border-radius: 2px;
   color: #aaa9a4;
-  background: rgba(8,8,8,.72);
-  backdrop-filter: blur(16px);
+  background: rgba(8,8,8,.88);
+  backdrop-filter: none;
   box-shadow: none;
 }
 .spatial-stat strong { color: #f4f3ee; font-size: 25px; }

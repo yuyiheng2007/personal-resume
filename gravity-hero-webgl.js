@@ -39,6 +39,20 @@
         try{
           const child=originalFrame.contentWindow,doc=child.document,section=scene.closest(".spatial-cover");
           if(!child||!doc||!section)return;
+          const gate=document.getElementById("resumeGate");
+          let frameInView=false;
+          const syncSceneVisibility=()=>{
+            child.__yyhResumeSceneActive=frameInView&&!document.hidden&&(!gate||gate.hidden);
+            doc.dispatchEvent(new child.Event("visibilitychange"));
+          };
+          const sceneObserver=new IntersectionObserver(([entry])=>{
+            frameInView=entry.isIntersecting&&entry.intersectionRatio>=.12;
+            syncSceneVisibility();
+          },{threshold:[0,.12]});
+          sceneObserver.observe(section);
+          document.addEventListener("visibilitychange",syncSceneVisibility);
+          if(gate)new MutationObserver(syncSceneVisibility).observe(gate,{attributes:true,attributeFilter:["hidden"]});
+          syncSceneVisibility();
           const disableDrag=()=>{
             const dragHandle=doc.querySelector("[data-gravity-drag-handle]");
             if(!dragHandle)return false;
@@ -55,9 +69,16 @@
           doc.addEventListener("keydown",event=>{
             if(event.target.closest?.("[data-gravity-drag-handle]")&&["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(event.key)){event.preventDefault();event.stopImmediatePropagation();}
           },true);
+          let wheelDelta=0,wheelFrame=0;
           doc.addEventListener("wheel",event=>{
             event.preventDefault();
-            window.scrollBy({top:event.deltaY,behavior:"auto"});
+            wheelDelta+=event.deltaY;
+            if(wheelFrame)return;
+            wheelFrame=requestAnimationFrame(()=>{
+              window.scrollBy({top:wheelDelta,behavior:"auto"});
+              wheelDelta=0;
+              wheelFrame=0;
+            });
           },{passive:false});
         }catch(error){console.warn("Gravity Journey scroll relay unavailable",error);}
       };
