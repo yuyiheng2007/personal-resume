@@ -765,6 +765,29 @@
     }
 
     .hero { padding-top: 72px; }
+    .spatial-cover { position:relative; min-height:min(850px,calc(100vh - var(--nav-h))); padding:42px 0 72px; overflow:hidden; background:#050505; border-bottom:1px solid rgba(255,255,255,.08); }
+    .spatial-cover::before { content:""; position:absolute; inset:0; background:radial-gradient(ellipse at center,rgba(112,34,28,.23),transparent 43%); pointer-events:none; }
+    .spatial-shell { position:relative; z-index:1; min-height:690px; }
+    .spatial-kicker { display:flex; justify-content:center; color:#b99852; font-size:12px; letter-spacing:.16em; text-transform:uppercase; }
+    .spatial-copy { position:absolute; z-index:5; left:50%; top:50%; width:min(940px,88%); text-align:center; transform:translate(-50%,-54%); pointer-events:none; }
+    .spatial-copy h1 { margin:0; color:#f7f4ef; font-size:clamp(58px,13vw,176px)!important; line-height:.92!important; letter-spacing:-.075em; text-shadow:0 0 48px rgba(255,210,150,.13); }
+    .spatial-copy p { max-width:900px; margin:24px auto 0; color:#b9b4af; font-size:clamp(15px,2vw,28px); line-height:1.8; }
+    .spatial-actions { display:flex; justify-content:center; gap:10px; margin-top:30px; pointer-events:auto; }
+    .spatial-scene { position:absolute; left:50%; top:50%; width:min(1080px,94vw); height:min(780px,92vh); transform:translate(-50%,-49%); pointer-events:none; }
+    .spatial-canvas { position:absolute; inset:0; width:100%; height:100%; }
+    .gravity-formula-layer { position:absolute; inset:0; width:100%; height:100%; }
+    .spatial-stat { position:absolute; z-index:7; width:266px; padding:23px 27px; border:1px solid rgba(255,255,255,.12); border-radius:3px; background:rgba(10,10,10,.62); color:#96918c; font-size:16px; line-height:1.5; backdrop-filter:blur(8px); }
+    .spatial-stat strong { display:block; margin-bottom:7px; color:#f7f4ef; font-size:38px; line-height:1; }
+    .spatial-stat.one { left:0; top:13%; } .spatial-stat.two { right:0; top:13%; }
+    .spatial-stat.three { left:50%; bottom:0; transform:translateX(-50%); }
+    .spatial-globe { position:absolute; right:9%; bottom:10%; width:110px; height:110px; border-radius:50%; opacity:.25; background-image:radial-gradient(#a37c43 1px,transparent 1.4px); background-size:7px 7px; mask-image:radial-gradient(circle,#000 45%,transparent 72%); }
+    .spatial-scene.gravity-hero-scene .spatial-canvas { pointer-events:auto; cursor:grab; }
+    .spatial-scene.gravity-hero-scene .spatial-canvas:active { cursor:grabbing; }
+    .gravity-formula-layer { pointer-events:none; }
+    .spatial-cover .spatial-kicker { visibility:hidden; }
+    @media(max-width:920px){.spatial-shell{min-height:640px}.spatial-stat{width:200px;padding:17px 19px}.spatial-stat strong{font-size:30px}}
+    @media(max-width:620px){.spatial-cover{min-height:720px;padding-top:28px}.spatial-shell{min-height:650px}.spatial-scene{width:120vw;height:90vh}.spatial-copy{top:45%;width:94%}.spatial-copy h1{font-size:clamp(54px,20vw,82px)!important}.spatial-copy p{max-width:330px;font-size:14px}.spatial-stat{width:132px;padding:12px;font-size:10px}.spatial-stat strong{font-size:23px}.spatial-stat.one{left:0;top:14%}.spatial-stat.two{right:0;top:14%}.spatial-stat.three{bottom:1%}}
+    @media(prefers-reduced-motion:reduce){.spatial-scene{transition:none!important}}
     .panel, .tabs, .card {
       border-color: rgba(255,255,255,.10);
       background: rgba(15,23,42,.60);
@@ -1289,7 +1312,21 @@
   <link rel="stylesheet" href="outcomes-inline.css?v=outcomes-20261011-1">
   <link rel="stylesheet" href="side-rail-nav.css?v=side-rail-20261011-8">
   <link rel="stylesheet" href="glitch-title.css?v=glitch-title-20261011-1">
-  <link rel="stylesheet" href="gravity-hero.css?v=gravity-hero-20261011-2">
+  <link rel="stylesheet" href="gravity-hero.css?v=gravity-hero-restore-20261017-2">
+  <style id="gravity-home-restored">
+    body.light-resume .spatial-cover { min-height:min(850px,calc(100vh - var(--nav-h))); background:#050505; border-color:rgba(255,255,255,.08); }
+    body.light-resume .spatial-cover::before { background:radial-gradient(ellipse at center,rgba(112,34,28,.23),transparent 43%); }
+    body.light-resume .spatial-copy h1 { color:#f7f4ef; font-size:clamp(58px,13vw,176px)!important; text-shadow:0 0 48px rgba(255,210,150,.13); }
+    body.light-resume .spatial-copy p { color:#b9b4af; font-size:clamp(15px,2vw,28px); }
+    body.light-resume .spatial-stat { border-color:rgba(255,255,255,.12); border-radius:3px; background:rgba(10,10,10,.62); color:#96918c; }
+    body.light-resume .spatial-stat strong { color:#f7f4ef; font-size:38px; }
+    body.light-resume .spatial-cover .spatial-kicker { visibility:hidden; }
+    body.light-resume .spatial-scene.gravity-source-scene { width:100vw; height:100svh; aspect-ratio:auto; opacity:1!important; filter:none!important; transform:translate(-50%,-50%)!important; overflow:visible; }
+    body.light-resume .spatial-scene.gravity-source-scene .gravity-journey-frame { width:138vw; height:138svh; }
+    body.light-resume .spatial-scene.gravity-source-scene > .spatial-canvas, body.light-resume .spatial-scene.gravity-source-scene > .spatial-blob { display:none; }
+    @media(max-width:920px){body.light-resume .spatial-stat strong{font-size:30px}}
+    @media(max-width:620px){body.light-resume .spatial-copy h1{font-size:clamp(54px,20vw,82px)!important}body.light-resume .spatial-copy p{font-size:14px}body.light-resume .spatial-stat strong{font-size:23px}}
+  </style>
 </head>
 <body class="gate-open light-resume">
   <div class="resume-gate" id="resumeGate" role="dialog" aria-modal="true" aria-label="个人简历入场页">
@@ -1326,7 +1363,7 @@
         <div class="spatial-scene" id="spatialScene" aria-hidden="true">
           <div class="spatial-orbit"></div>
           <canvas class="spatial-canvas" id="spatialCanvas"></canvas>
-          <iframe class="gravity-journey-frame" src="gravity-journey-original.html" title="引力之旅实时公式黑洞场景" loading="eager" referrerpolicy="no-referrer"></iframe>
+          <iframe class="gravity-journey-frame" src="gravity-journey-original.html" title="首页黑洞动态背景" loading="eager" referrerpolicy="no-referrer"></iframe>
           <div class="spatial-blob"></div>
         </div>
         <div class="spatial-copy">
@@ -1394,7 +1431,7 @@
     </div>
   </footer>
 
-  <script src="gravity-hero-webgl.js?v=gravity-webgl-20261011-5"></script>
+  <script src="gravity-hero-webgl.js?v=gravity-hero-restore-20261017-1"></script>
   <script>
     const resume = {
       name: "余怡衡",
@@ -1512,18 +1549,6 @@
           name: "科创实践",
           items: [
             {
-              title: "校迹｜校园交互地图",
-              time: "2026.09 - 2026.10",
-              role: "需求梳理 / 信息整理 / 原型迭代",
-              stack: ["校园服务", "交互地图", "原型验证", "用户反馈"],
-              link: "demos/campus-map/index.html",
-              bullets: [
-                "从新生找楼和辨认功能区的真实困难出发，整理地点信息并制作可搜索、可筛选的地图原型。",
-                "完成最小可用版本后向老师请教，根据反馈调整信息层级、项目定位和后续验证思路。",
-                "目前还在试用阶段，接下来会找几位同学实际操作，看他们能不能独立找到地点。"
-              ]
-            },
-            {
               title: "人工智能证书核心知识学习教案",
               time: "2026.10",
               role: "资料研究 / 学习路线设计 / 知识编排",
@@ -1547,30 +1572,6 @@
                 "开发过程使用AI辅助，我主要负责需求判断、功能取舍、页面整合、测试和发布维护。"
               ]
             },
-            {
-              title: "Gravity Journey 引力之旅",
-              time: "2026.10",
-              role: "需求设计 / AI辅助实现 / 交互验收",
-              stack: ["Three.js", "TypeScript", "开普勒轨道", "Canvas 纹理"],
-              link: "",
-              bullets: [
-                "根据完整需求说明，搭建包含24步科普导览、太阳系场景与自由探索模式的交互原型。",
-                "使用开普勒方程估算行星位置，通过Canvas运行时生成太阳、地球、行星和土星环纹理。",
-                "由AI辅助编写原型代码，我负责提出需求、检查交互和浏览器验收；目前为本地版本，尚未发布为公开网站。"
-              ]
-            },
-            {
-              title: "公式引力场｜黑洞交互视觉",
-              time: "2026.10",
-              role: "开源项目视觉适配 / 独立页面整理 / 浏览器验收",
-              stack: ["Three.js", "WebGL", "GLSL", "交互视觉改编"],
-              link: "gravity-journey-original.html",
-              bullets: [
-                "基于作者公开部署的完整交互场景整理出独立体验页，并保留原作者署名。",
-                "围绕金色公式引力盘与黑洞主视觉调整呈现；独立体验页保留原有滚动叙事和拖动等交互。",
-                "借助 AI 协助进行页面适配与调试，由我负责需求判断和浏览器验收；后续公开发布前需核实并遵循原仓库许可证。"
-              ]
-            }
           ]
         }
       ],
